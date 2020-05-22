@@ -10,7 +10,7 @@ class Index extends Component {
 
   render() {
     return (
-      <div className="bg-gray-800 h-screen  overflow-hidden">
+      <div className="bg-darkGray-800 h-screen  overflow-hidden">
         <Header />
       </div>
     );
