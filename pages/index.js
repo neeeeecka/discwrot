@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Header from "./components/header";
+import SideBar from "./components/sideBar";
 
 const cURL = "http://localhost:2999";
 
@@ -10,8 +10,8 @@ class Index extends Component {
 
   render() {
     return (
-      <div className="bg-darkGray-800 h-screen  overflow-hidden">
-        <Header />
+      <div className="bg-darkGray-700 flex h-screen overflow-hidden">
+        <SideBar />
       </div>
     );
   }

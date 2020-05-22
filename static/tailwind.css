@@ -16,6 +16,16 @@
   /* transition: all 5s ease; */
 }
 
+.width-sidebar {
+  width: 240px;
+}
+.width-subSidebar {
+  width: 72px;
+}
+.height-header {
+  height: 48px;
+}
+
 .children-mb-1 {
   margin-bottom: 0.25rem;
 }
