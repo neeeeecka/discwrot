@@ -25,6 +25,9 @@
 .height-header {
   height: 48px;
 }
+.height-input {
+  height: 28px;
+}
 .user-head-big {
   width: 50px;
   height: 50px;
