@@ -19,7 +19,7 @@ class SideBar extends Component {
   };
   render() {
     return (
-      <div className="bg-darkGray-800 width-sidebar flex flex-col">
+      <div className="bg-darkGray-800 width-sidebar flex flex-col select-none">
         <div className="height-header flex w-full p-3 py-2 border-b-2 border-darkGray-900">
           <input
             type="text"
@@ -32,7 +32,7 @@ class SideBar extends Component {
         <span className="text-xs px-6 mt-2 text-darkGray-400 font-medium">
           DIRECT MESSAGES
         </span>
-        <div className="p-3">
+        <div className="p-3 pt-1">
           <UserRow />
         </div>
       </div>
