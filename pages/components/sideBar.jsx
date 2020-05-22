@@ -29,6 +29,9 @@ class SideBar extends Component {
             onChange={e => this.setState({ findText: e.target.value })}
           />
         </div>
+        <span className="text-xs px-6 mt-2 text-darkGray-400 font-medium">
+          DIRECT MESSAGES
+        </span>
         <div className="p-3">
           <UserRow />
         </div>
