@@ -11,7 +11,7 @@ class Index extends Component {
       status: "Раздаю бонус коды на 279р"
     },
     units: [],
-    mainPageVisible: true
+    mainPageVisible: false
   };
   openSettings = () => {
     this.setState({ mainPageVisible: false });
@@ -37,7 +37,12 @@ class Index extends Component {
               : " opacity-100 scale-anim-100")
           }
         >
-          <span className="">Settings</span>
+          <div className="flex w-full h-full">
+            <div className="flex-settings-left flex bg-darkGray-800 justify-end">
+              <div className="width-settings-sidebar">tst</div>
+            </div>
+            <div className="flex-settings-right flex justify-start">test</div>
+          </div>
         </div>
       </div>
     );

@@ -30,8 +30,19 @@ body {
 }
 .home-icon {
 }
+
+.flex-settings-left {
+  flex: 1 0 218px;
+}
+.flex-settings-right {
+  flex: 1 1 800px;
+}
+
 .width-sidebar {
   width: 240px;
+}
+.width-settings-sidebar {
+  width: 218px;
 }
 .width-subSidebar {
   width: 72px;
