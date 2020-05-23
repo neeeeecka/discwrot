@@ -19,8 +19,8 @@ class UserDock extends Component {
 
     return (
       <div className="flex cursor-pointer rounded-md">
-        <div className="user-head-small bg-darkGray-200"></div>
-        <div className="text-darkGray-100 ml-2 text-sm flex-1 flex flex-col justify-center">
+        <div className="user-head-small bg-darkGray-200 flex-shrink-0"></div>
+        <div className="text-darkGray-100 ml-2 mr-1 text-cs flex-1 flex flex-col justify-center">
           <span className="font-bold leading-none">{username}</span>
           <div className="text-darkGray-300 text-xs leading-none mt-1">
             {status}

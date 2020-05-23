@@ -49,7 +49,9 @@
 .children-mb-1:last-child {
   margin-bottom: 0;
 }
-
+.text-cs {
+  font-size: 0.95rem;
+}
 .children-mb-2 {
   margin-bottom: 0.5rem;
 }
