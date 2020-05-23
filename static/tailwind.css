@@ -50,7 +50,10 @@
   margin-bottom: 0;
 }
 .text-cs {
-  font-size: 0.95rem;
+  font-size: 13px;
+}
+.text-xscs {
+  font-size: 12px;
 }
 .children-mb-2 {
   margin-bottom: 0.5rem;

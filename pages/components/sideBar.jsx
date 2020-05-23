@@ -12,17 +12,17 @@ class UserDock extends Component {
     username =
       username.length > 9 ? username.substring(0, 10) + "..." : username;
     let status = this.props.user.status;
-    status = status.length > 11 ? status.substring(0, 12) + " ..." : status;
+    status = status.length > 11 ? status.substring(0, 12) + "..." : status;
 
     const smallBtnClass =
-      "wh-square-sm hover:bg-darkGray-700 rounded-md outline-none";
+      "wh-square-sm hover:bg-darkGray-700 rounded-md outline-none focus:outline-none";
 
     return (
       <div className="flex cursor-pointer rounded-md">
         <div className="user-head-small bg-darkGray-200 flex-shrink-0"></div>
-        <div className="text-darkGray-100 ml-2 mr-1 text-cs flex-1 flex flex-col justify-center">
-          <span className="font-bold leading-none">{username}</span>
-          <div className="text-darkGray-300 text-xs leading-none mt-1">
+        <div className="text-darkGray-100 ml-2 mr-1 flex-1 flex flex-col justify-center">
+          <span className="font-bold leading-none text-cs">{username}</span>
+          <div className="text-darkGray-300 text-xscs leading-none mt-1">
             {status}
           </div>
         </div>

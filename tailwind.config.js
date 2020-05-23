@@ -25,7 +25,8 @@ module.exports = {
     }
   },
   variants: {
-    borderRadius: ["hover"]
+    borderRadius: ["hover"],
+    outline: ["focus", "hover"]
   },
   plugins: []
 };
