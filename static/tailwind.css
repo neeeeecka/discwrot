@@ -35,6 +35,12 @@ body {
   width: 30px;
 }
 
+.min-w-acc {
+  flex: 1 1 auto;
+  max-width: 740px;
+  min-width: 120px;
+  min-height: 100%;
+}
 .flex-settings-left {
   flex: 1 0 192px;
 }

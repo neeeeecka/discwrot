@@ -14,7 +14,7 @@ class Settings extends Component {
         }
       >
         <div className="flex w-full h-full">
-          <div className="flex-settings-left flex bg-darkGray-800 justify-end pt-16">
+          <div className="flex-settings-left flex bg-darkGray-800 justify-end pt-16 pl-6">
             <div className="width-settings-sidebar">
               <span className="text-darkGray-400 text-xs font-bold">
                 USER SETTINGS
@@ -22,7 +22,7 @@ class Settings extends Component {
             </div>
           </div>
           <div className="flex-settings-right flex justify-start pt-16">
-            <div className="px-10 min-w-740 text-darkGray-100 font-bold">
+            <div className="px-10 min-w-acc text-darkGray-100 font-bold">
               MY ACCOUNT
             </div>
             <div className="px-10 pl-0">
