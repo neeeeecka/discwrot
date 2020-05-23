@@ -9,7 +9,12 @@ import {
 class UserDockButton extends Component {
   render() {
     return (
-      <button className="wh-square-sm hover:bg-darkGray-700 rounded-md outline-none focus:outline-none">
+      <button
+        onMouseEnter={e => {}}
+        onMouseLeave={e => {}}
+        onClick={this.props.onClick}
+        className="wh-square-sm hover:bg-darkGray-700 rounded-md outline-none focus:outline-none"
+      >
         {this.props.children}
       </button>
     );
@@ -48,7 +53,7 @@ class UserDock extends Component {
               className="my-auto text-darkGray-300 outline-none"
             />
           </UserDockButton>
-          <UserDockButton>
+          <UserDockButton onClick={this.props.openSettings}>
             <FontAwesomeIcon
               icon={faCog}
               className="my-auto text-darkGray-300 outline-none"
@@ -100,7 +105,10 @@ class SideBar extends Component {
             <UserRow />
           </div>
           <div className="bg-darkGray-850 p-2 m-auto mb-0 w-full">
-            <UserDock user={this.props.user} />
+            <UserDock
+              user={this.props.user}
+              openSettings={this.props.openSettings}
+            />
           </div>
         </div>
       </div>

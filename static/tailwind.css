@@ -2,6 +2,19 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+body {
+  @apply bg-darkGray-700;
+}
+
+.scale-anim-95 {
+  transform: scale(0.95);
+}
+.scale-anim-100 {
+  transform: scale(1);
+}
+.scale-anim-115 {
+  transform: scale(1.15);
+}
 .transform-duration-0 {
   transition: none;
 }
