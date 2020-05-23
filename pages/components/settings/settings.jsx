@@ -55,7 +55,7 @@ class Settings extends Component {
         <div className="flex w-full h-full">
           <div className="flex-settings-left flex bg-darkGray-800 justify-end pt-16 pl-6">
             <div className="width-settings-sidebar pr-3">
-              <span className="flex flex-col text-darkGray-400 text-xs font-bold mb-1 ml-2">
+              <span className="flex flex-col text-darkGray-400 text-xs font-bold mb-2 ml-2">
                 USER SETTINGS
               </span>
               {this.getPageButtons()}
