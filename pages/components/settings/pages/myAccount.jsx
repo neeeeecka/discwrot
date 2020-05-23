@@ -22,7 +22,7 @@ class MyAccount extends Component {
             </span>
           </div>
         </div>
-        <button className="m-auto mt-0 transition-all duration-150 hover:bg-accent-900 bg-accent-800 px-4 py-1 text-white rounded-md outline-none focus:outline-none">
+        <button className="m-auto mt-0 transition-all duration-150 hover:bg-accent-900 active:bg-accent-1000 bg-accent-800 px-4 py-1 text-white rounded-md outline-none focus:outline-none">
           Edit
         </button>
       </div>

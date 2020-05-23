@@ -17,6 +17,7 @@ module.exports = {
           "100": "#fcfcfd"
         },
         accent: {
+          "1000": "#C04D15",
           "900": "#FF671B",
           "800": "#FF7935",
           "700": "#FF8A4F",
@@ -44,6 +45,7 @@ module.exports = {
   },
   variants: {
     borderRadius: ["hover"],
+    backgroundColor: ["hover", "focus", "active"],
     outline: ["focus", "hover"]
   },
   plugins: []
