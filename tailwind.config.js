@@ -17,7 +17,15 @@ module.exports = {
           "100": "#fcfcfd"
         },
         accent: {
-          "900": "#75d26f"
+          "900": "#FF671B",
+          "800": "#FF7935",
+          "700": "#FF8A4F",
+          "600": "#FF9C69",
+          "500": "#FFAD83",
+          "400": "#FFBF9D",
+          "300": "#FFD0B7",
+          "200": "#FFE1D1",
+          "100": "#FFF2EB"
         }
       },
       borderRadius: {
