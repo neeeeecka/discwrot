@@ -4,7 +4,7 @@
 
 body {
   @apply bg-darkGray-700;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
 }
 
 .scale-anim-95 {
