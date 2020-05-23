@@ -12,7 +12,7 @@ class Index extends Component {
       status: "Раздаю бонус коды на 279р"
     },
     units: [],
-    mainPageVisible: false
+    mainPageVisible: true
   };
   openSettings = () => {
     this.setState({ mainPageVisible: false });

@@ -31,6 +31,9 @@ body {
 }
 .home-icon {
 }
+.w-logo {
+  width: 30px;
+}
 
 .flex-settings-left {
   flex: 1 0 192px;
