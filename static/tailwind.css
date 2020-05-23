@@ -39,7 +39,10 @@
   height: 32px;
   border-radius: 50%;
 }
-
+.wh-square-sm {
+  width: 32px;
+  height: 32px;
+}
 .children-mb-1 {
   margin-bottom: 0.25rem;
 }

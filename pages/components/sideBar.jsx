@@ -7,17 +7,40 @@ class UserDock extends Component {
     let username = this.props.user.name;
     username =
       username.length > 9 ? username.substring(0, 10) + "..." : username;
-    let status = "Раздаю бонус коды на 279р";
+    let status = this.props.user.status;
     status = status.length > 11 ? status.substring(0, 12) + " ..." : status;
+
+    const smallBtnClass =
+      "wh-square-sm hover:bg-darkGray-700 rounded-md outline-none";
+
     return (
-      <div className="flex cursor-pointer px-1 rounded-md">
+      <div className="flex cursor-pointer rounded-md">
         <div className="user-head-small bg-darkGray-200"></div>
-        <div className="text-darkGray-100 ml-4 text-sm flex-1 flex flex-col">
-          <span className="font-bold">{username}</span>
-          <div className="text-darkGray-300 text-xs">{status}</div>
+        <div className="text-darkGray-100 ml-2 text-sm flex-1 flex flex-col justify-center">
+          <span className="font-bold leading-none">{username}</span>
+          <div className="text-darkGray-300 text-xs leading-none mt-1">
+            {status}
+          </div>
         </div>
         <div className="flex">
-          <FontAwesomeIcon icon={faCog} className="my-auto text-darkGray-300" />
+          <button className={smallBtnClass}>
+            <FontAwesomeIcon
+              icon={faCog}
+              className="my-auto text-darkGray-300 outline-none"
+            />
+          </button>
+          <button className={smallBtnClass}>
+            <FontAwesomeIcon
+              icon={faCog}
+              className="my-auto text-darkGray-300 outline-none"
+            />
+          </button>
+          <button className={smallBtnClass}>
+            <FontAwesomeIcon
+              icon={faCog}
+              className="my-auto text-darkGray-300 outline-none"
+            />
+          </button>
         </div>
       </div>
     );
@@ -63,7 +86,7 @@ class SideBar extends Component {
             </span>
             <UserRow />
           </div>
-          <div className="bg-darkGray-850 p-3 m-auto mb-0 w-full">
+          <div className="bg-darkGray-850 p-2 m-auto mb-0 w-full">
             <UserDock user={this.props.user} />
           </div>
         </div>

@@ -5,7 +5,11 @@ const cURL = "http://localhost:2999";
 
 class Index extends Component {
   state = {
-    user: { name: "White_Stardust", uid: "992" },
+    user: {
+      name: "White_Stardust",
+      uid: "992",
+      status: "Раздаю бонус коды на 279р"
+    },
     units: []
   };
 
