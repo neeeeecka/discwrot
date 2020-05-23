@@ -44,19 +44,19 @@ class UserDock extends Component {
           <UserDockButton>
             <FontAwesomeIcon
               icon={faMicrophone}
-              className="my-auto text-darkGray-300 outline-none"
+              className="my-auto text-darkGray-300 "
             />
           </UserDockButton>
           <UserDockButton>
             <FontAwesomeIcon
               icon={faHeadphones}
-              className="my-auto text-darkGray-300 outline-none"
+              className="my-auto text-darkGray-300 "
             />
           </UserDockButton>
           <UserDockButton onClick={this.props.openSettings}>
             <FontAwesomeIcon
               icon={faCog}
-              className="my-auto text-darkGray-300 outline-none"
+              className="my-auto text-darkGray-300 "
             />
           </UserDockButton>
         </div>

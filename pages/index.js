@@ -18,6 +18,9 @@ class Index extends Component {
   openSettings = () => {
     this.setState({ mainPageVisible: false });
   };
+  closeSettings = () => {
+    this.setState({ mainPageVisible: true });
+  };
   render() {
     return (
       <div className="relative overflow-hidden">
@@ -52,14 +55,17 @@ class Index extends Component {
                 MY ACCOUNT
               </div>
               <div className="px-10">
-                <div className="content-center flex flex-col">
+                <button
+                  className="content-center flex flex-col outline-none focus:outline-none"
+                  onClick={this.closeSettings}
+                >
                   <span className="rounded-full text-darkGray-200 hover:bg-darkGray-650 cursor-pointer border-2 border-darkGray-500 wh-square-md flex">
                     <FontAwesomeIcon icon={faPlus} className="m-auto" />
                   </span>
                   <span className="text-darkGray-500 text-xs font-bold mx-auto mt-1">
                     ESC
                   </span>
-                </div>
+                </button>
               </div>
             </div>
           </div>
