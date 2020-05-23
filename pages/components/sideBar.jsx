@@ -4,11 +4,17 @@ import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 class UserDock extends Component {
   render() {
+    let username = this.props.user.name;
+    username =
+      username.length > 9 ? username.substring(0, 10) + "..." : username;
+    let status = "Раздаю бонус коды на 279р";
+    status = status.length > 11 ? status.substring(0, 12) + " ..." : status;
     return (
       <div className="flex cursor-pointer px-1 rounded-md">
         <div className="user-head-small bg-darkGray-200"></div>
-        <div className="text-darkGray-100 font-medium flex-1 flex">
-          <span className="m-auto ml-4">White_Stardust</span>
+        <div className="text-darkGray-100 ml-4 text-sm flex-1 flex flex-col">
+          <span className="font-bold">{username}</span>
+          <div className="text-darkGray-300 text-xs">{status}</div>
         </div>
         <div className="flex">
           <FontAwesomeIcon icon={faCog} className="my-auto text-darkGray-300" />
@@ -58,7 +64,7 @@ class SideBar extends Component {
             <UserRow />
           </div>
           <div className="bg-darkGray-850 p-3 m-auto mb-0 w-full">
-            <UserDock />
+            <UserDock user={this.props.user} />
           </div>
         </div>
       </div>
