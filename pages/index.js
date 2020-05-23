@@ -8,11 +8,12 @@ class Index extends Component {
   state = {
     user: {
       name: "White_Stardust",
-      uid: "992",
+      uid: "9365",
+      email: "blackshtormx@gmail.com",
       status: "Раздаю бонус коды на 279р"
     },
     units: [],
-    mainPageVisible: true
+    mainPageVisible: false
   };
   openSettings = () => {
     this.setState({ mainPageVisible: false });
@@ -31,6 +32,7 @@ class Index extends Component {
         <Settings
           mainPageVisible={this.state.mainPageVisible}
           closeSettings={this.closeSettings}
+          user={this.state.user}
         />
       </div>
     );

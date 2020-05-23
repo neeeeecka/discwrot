@@ -17,7 +17,7 @@ class Settings extends Component {
     const LoadedPage = loadable(() =>
       import("./pages/" + this.state.selectedPage)
     );
-    return <LoadedPage />;
+    return <LoadedPage user={this.props.user} />;
   };
   getPageButtons = () => {
     const keys = Object.keys(this.state.settings);
