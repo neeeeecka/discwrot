@@ -1,14 +1,18 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 class UserDock extends Component {
   render() {
     return (
       <div className="flex cursor-pointer px-1 rounded-md">
-        <div className="user-head-small"></div>
+        <div className="user-head-small bg-darkGray-200"></div>
         <div className="text-darkGray-100 font-medium flex-1 flex">
           <span className="m-auto ml-4">White_Stardust</span>
         </div>
-        <div className=""></div>
+        <div className="flex">
+          <FontAwesomeIcon icon={faCog} className="my-auto text-darkGray-300" />
+        </div>
       </div>
     );
   }
@@ -18,7 +22,7 @@ class UserRow extends Component {
   render() {
     return (
       <div className="flex cursor-pointer hover:bg-darkGray-700 px-3 py-2 rounded-md">
-        <div className="user-head-small"></div>
+        <div className="user-head-small bg-darkGray-200"></div>
         <div className="text-darkGray-400 flex-1 flex">
           <span className="m-auto ml-4">Morgenshtern</span>
         </div>
@@ -34,7 +38,9 @@ class SideBar extends Component {
   render() {
     return (
       <div className="bg-darkGray-800 select-none flex">
-        <div className="bg-darkGray-900 flex flex-col p-2 width-subSidebar"></div>
+        <div className="bg-darkGray-900 flex flex-col p-2 width-subSidebar">
+          <span className="bg-accent-900 user-head-big" />
+        </div>
         <div className="flex flex-col flex-1 width-sidebar ">
           <div className="height-header flex w-full p-3 py-2 border-b-2 border-darkGray-900">
             <input
