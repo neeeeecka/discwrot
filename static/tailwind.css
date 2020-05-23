@@ -4,6 +4,7 @@
 
 body {
   @apply bg-darkGray-700;
+  font-family: sans-serif;
 }
 
 .scale-anim-95 {
@@ -66,6 +67,10 @@ body {
 .wh-square-sm {
   width: 32px;
   height: 32px;
+}
+.wh-square-md {
+  width: 36px;
+  height: 36px;
 }
 .children-mb-1 {
   margin-bottom: 0.25rem;
