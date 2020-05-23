@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCog,
+  faHeadphones,
+  faMicrophone
+} from "@fortawesome/free-solid-svg-icons";
 
 class UserDock extends Component {
   render() {
@@ -25,13 +29,13 @@ class UserDock extends Component {
         <div className="flex">
           <button className={smallBtnClass}>
             <FontAwesomeIcon
-              icon={faCog}
+              icon={faMicrophone}
               className="my-auto text-darkGray-300 outline-none"
             />
           </button>
           <button className={smallBtnClass}>
             <FontAwesomeIcon
-              icon={faCog}
+              icon={faHeadphones}
               className="my-auto text-darkGray-300 outline-none"
             />
           </button>
