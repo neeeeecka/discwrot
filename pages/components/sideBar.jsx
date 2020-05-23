@@ -6,6 +6,16 @@ import {
   faMicrophone
 } from "@fortawesome/free-solid-svg-icons";
 
+class UserDockButton extends Component {
+  render() {
+    return (
+      <button className="wh-square-sm hover:bg-darkGray-700 rounded-md outline-none focus:outline-none">
+        {this.props.children}
+      </button>
+    );
+  }
+}
+
 class UserDock extends Component {
   render() {
     let username = this.props.user.name;
@@ -14,8 +24,7 @@ class UserDock extends Component {
     let status = this.props.user.status;
     status = status.length > 11 ? status.substring(0, 12) + "..." : status;
 
-    const smallBtnClass =
-      "wh-square-sm hover:bg-darkGray-700 rounded-md outline-none focus:outline-none";
+    const smallBtnClass = "";
 
     return (
       <div className="flex cursor-pointer rounded-md">
@@ -27,24 +36,24 @@ class UserDock extends Component {
           </div>
         </div>
         <div className="flex">
-          <button className={smallBtnClass}>
+          <UserDockButton>
             <FontAwesomeIcon
               icon={faMicrophone}
               className="my-auto text-darkGray-300 outline-none"
             />
-          </button>
-          <button className={smallBtnClass}>
+          </UserDockButton>
+          <UserDockButton>
             <FontAwesomeIcon
               icon={faHeadphones}
               className="my-auto text-darkGray-300 outline-none"
             />
-          </button>
-          <button className={smallBtnClass}>
+          </UserDockButton>
+          <UserDockButton>
             <FontAwesomeIcon
               icon={faCog}
               className="my-auto text-darkGray-300 outline-none"
             />
-          </button>
+          </UserDockButton>
         </div>
       </div>
     );
