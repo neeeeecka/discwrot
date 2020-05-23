@@ -39,7 +39,7 @@ class SideBar extends Component {
     return (
       <div className="bg-darkGray-800 select-none flex">
         <div className="bg-darkGray-900 flex flex-col p-2 width-subSidebar">
-          <span className="bg-accent-900 user-head-big" />
+          <span className="bg-darkGray-700 hover:bg-accent-900 hover:rounded-lgg user-head-big mx-auto cursor-pointer ease duration-150 transition-all" />
         </div>
         <div className="flex flex-col flex-1 width-sidebar ">
           <div className="height-header flex w-full p-3 py-2 border-b-2 border-darkGray-900">

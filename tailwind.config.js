@@ -18,9 +18,14 @@ module.exports = {
         accent: {
           "900": "#75d26f"
         }
+      },
+      borderRadius: {
+        lgg: "1.15rem"
       }
     }
   },
-  variants: {},
+  variants: {
+    borderRadius: ["hover"]
+  },
   plugins: []
 };
