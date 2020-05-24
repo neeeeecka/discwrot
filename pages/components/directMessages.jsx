@@ -2,7 +2,10 @@ import React, { Component } from "react";
 class UserRow extends Component {
   render() {
     return (
-      <div className="flex cursor-pointer hover:bg-darkGray-700 px-3 py-2 rounded-md">
+      <div
+        onClick={() => this.props.onClick(this.props)}
+        className="flex cursor-pointer hover:bg-darkGray-700 px-3 py-2 rounded-md"
+      >
         <div className="user-head-small bg-darkGray-200"></div>
         <div className="text-darkGray-400 flex-1 flex">
           <span className="m-auto ml-4">{this.props.name}</span>
@@ -14,15 +17,23 @@ class UserRow extends Component {
 class DirectMessages extends Component {
   state = {
     friends: [
-      { name: "Morgenshtern", state: "offline" },
-      { name: "BlackJader", state: "online" }
+      { name: "Morgenshtern", state: "offline", targetId: "552" },
+      { name: "BlackJader", state: "online", targetId: "323" },
+      { name: "Matejicek", state: "offline", targetId: "551" }
     ]
   };
   geFriendList = () => {
     const dom = [];
     this.state.friends.forEach(friend => {
       if (friend.name.toLowerCase().includes(this.props.findText)) {
-        dom.push(<UserRow {...friend} />);
+        dom.push(
+          <UserRow
+            {...friend}
+            onClick={pFriend => {
+              this.props.selectChannel(pFriend.name, pFriend.targetId);
+            }}
+          />
+        );
       }
     });
     return dom;

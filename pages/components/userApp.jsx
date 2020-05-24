@@ -3,9 +3,19 @@ import SideBar from "./sideBar";
 import loadable from "@loadable/component";
 
 class UserApp extends Component {
-  state = { rightNavState: "chat", chatState: "dm" };
+  state = {
+    rightNavState: "me",
+    selectedChannel: { name: "me", targetId: "" }
+  };
+  selectChannel = (name, targetId) => {
+    this.setState({ selectedChannel: { name: name, targetId: targetId } });
+  };
   getRightNav = () => {
-    const LoadedPage = loadable(() => import("./" + this.state.rightNavState));
+    let rightNavState = this.state.selectedChannel.name;
+    if (rightNavState !== "me") {
+      rightNavState = "chat";
+    }
+    const LoadedPage = loadable(() => import("./" + rightNavState));
     return <LoadedPage user={this.props.user} {...this.state} />;
   };
   render() {
@@ -21,6 +31,7 @@ class UserApp extends Component {
         <SideBar
           user={this.props.user}
           openSettings={this.props.openSettings}
+          selectChannel={this.selectChannel}
         />
         <div className="flex-1">{this.getRightNav()}</div>
       </div>

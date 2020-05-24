@@ -6,7 +6,14 @@ class Chat extends Component {
   render() {
     return (
       <React.Fragment>
-        <span>Chat</span>
+        <div className="height-header flex w-full p-3 py-2 border-b-2 border-darkGray-900">
+          <span>
+            <span className="text-xl leading-none text-darkGray-400">@</span>
+            <span className="font-bold text-darkGray-100 ml-2">
+              {this.props.selectedChannel.name}
+            </span>
+          </span>
+        </div>
       </React.Fragment>
     );
   }
