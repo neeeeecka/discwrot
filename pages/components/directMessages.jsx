@@ -7,7 +7,7 @@ class UserRow extends Component {
       <div
         onClick={() => this.props.onClick(this.props)}
         className={
-          "flex cursor-pointer px-3 py-2 rounded-md" +
+          "flex cursor-pointer px-2 py-1 mb-1 rounded-md" +
           (this.props.selectedChannel.name === this.props.name
             ? " text-darkGray-100 bg-darkGray-650"
             : " text-darkGray-300 hover:bg-darkGray-700")
@@ -51,7 +51,7 @@ class DirectMessages extends Component {
       <React.Fragment>
         <button
           className={
-            "flex w-full cursor-pointer px-3 py-2 rounded-md outline-none focus:outline-none" +
+            "flex w-full cursor-pointer mt-3 px-3 py-2 rounded-md outline-none focus:outline-none" +
             (this.props.selectedChannel.name === "me"
               ? " text-darkGray-100 bg-darkGray-650"
               : " text-darkGray-300 hover:bg-darkGray-700")
@@ -63,7 +63,7 @@ class DirectMessages extends Component {
           <FontAwesomeIcon icon={faUserFriends} className="my-auto mr-5 ml-2" />
           <span>Friends</span>
         </button>
-        <span className="text-xs px-3 text-darkGray-400 mb-2 mt-1 block font-medium">
+        <span className="text-xs px-3 text-darkGray-400 mb-2 mt-6 block font-medium">
           DIRECT MESSAGES
         </span>
         {this.geFriendList()}
