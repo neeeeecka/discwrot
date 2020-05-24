@@ -5,7 +5,7 @@ class Me extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="height-header flex w-full px-5 py-2 border-b-2 border-darkGray-900">
+        <div className="height-header flex w-full px-5 py-2 border-b shadow-bottom border-darkGray-900">
           <span>
             <FontAwesomeIcon
               icon={faUserFriends}

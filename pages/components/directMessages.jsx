@@ -51,7 +51,7 @@ class DirectMessages extends Component {
       <React.Fragment>
         <button
           className={
-            "flex w-full cursor-pointer mt-3 px-3 py-2 rounded-md outline-none focus:outline-none" +
+            "flex w-full cursor-pointer mt-2 px-1 py-2 rounded-md outline-none focus:outline-none" +
             (this.props.selectedChannel.name === "me"
               ? " text-darkGray-100 bg-darkGray-650"
               : " text-darkGray-300 hover:bg-darkGray-700")

@@ -83,8 +83,8 @@ class SideBar extends Component {
           <span className="flex mt-1 text-darkGray-200 bg-darkGray-700 hover:bg-accent-900 hover:rounded-lgg user-head-big mx-auto cursor-pointer ease duration-150 transition-all"></span>
           <span className="w-4/7 h-1/2 bg-darkGray-850 mx-auto mt-2"></span>
         </div>
-        <div className="flex flex-col flex-1 width-sidebar">
-          <div className="height-header flex w-full p-3 py-2 border-b-2 border-darkGray-900">
+        <div className="flex flex-col flex-1 width-sidebar overflow-hidden">
+          <div className="height-header flex w-full p-3 py-2 border-b shadow-bottom border-darkGray-900">
             <input
               type="text"
               value={this.state.findText}
