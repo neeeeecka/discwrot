@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import SideBar from "./sideBar";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import loadable from "@loadable/component";
 
 class UserApp extends Component {
+  state = { rightNavState: "chat" };
+  getRightNav = () => {
+    const LoadedPage = loadable(() => import("./" + this.state.rightNavState));
+    return <LoadedPage user={this.props.user} />;
+  };
   render() {
     return (
       <div
@@ -19,6 +22,7 @@ class UserApp extends Component {
           user={this.props.user}
           openSettings={this.props.openSettings}
         />
+        <div className="flex-1">{this.getRightNav()}</div>
       </div>
     );
   }

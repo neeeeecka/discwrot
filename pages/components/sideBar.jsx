@@ -69,6 +69,7 @@ class UserDock extends Component {
 class SideBar extends Component {
   state = {
     findText: "",
+    //selectedPage: "server"
     selectedPage: "directMessages"
   };
   getSideContent = () => {
