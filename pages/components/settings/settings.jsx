@@ -7,7 +7,10 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 class Settings extends Component {
   state = {
     selectedPage: "myAccount",
-    settings: { myAccount: "My Account", privacy: "Privacy & Safety" }
+    settings: {
+      userSettings: { myAccount: "My Account", privacy: "Privacy & Safety" },
+      appSettings: { voiceVideo: "Voice & Video", language: "Language" }
+    }
   };
 
   selectPage = page => {
@@ -20,23 +23,41 @@ class Settings extends Component {
     return <LoadedPage user={this.props.user} />;
   };
   getPageButtons = () => {
-    const keys = Object.keys(this.state.settings);
     const dom = [];
 
-    keys.forEach(page => {
-      const title = this.state.settings[page];
+    Object.keys(this.state.settings).forEach(subSetting => {
+      const titled =
+        subSetting.substring(0, subSetting.indexOf("S")) +
+        " " +
+        subSetting.substring(subSetting.indexOf("S"), subSetting.length);
+
       dom.push(
-        <button
-          className={
-            "w-full text-left mb-1 px-2 py-1 rounded-sm outline-none focus:outline-none" +
-            (page === this.state.selectedPage
-              ? " bg-darkGray-600 text-darkGray-100"
-              : " text-darkGray-200 hover:bg-darkGray-700")
-          }
-          onClick={() => this.selectPage(page)}
-        >
-          <span>{title}</span>
-        </button>
+        <span className="flex flex-col text-darkGray-400 text-xs font-bold mb-2 ml-2">
+          {titled.toUpperCase()}
+        </span>
+      );
+      const pages = Object.keys(this.state.settings[subSetting]);
+      pages.forEach((page, i) => {
+        const title = this.state.settings[subSetting][page];
+        const last = i === pages.length - 1;
+        dom.push(
+          <button
+            key={page}
+            className={
+              "w-full text-left px-2 py-1 rounded-sm outline-none focus:outline-none" +
+              (page === this.state.selectedPage
+                ? " bg-darkGray-600 text-darkGray-100"
+                : " text-darkGray-200 hover:bg-darkGray-700") +
+              (last ? " mb-0" : " mb-1")
+            }
+            onClick={() => this.selectPage(page)}
+          >
+            <span>{title}</span>
+          </button>
+        );
+      });
+      dom.push(
+        <span className="w-full h-1px bg-darkGray-700 block mt-2 mb-4" />
       );
     });
     return dom;
@@ -55,9 +76,6 @@ class Settings extends Component {
         <div className="flex w-full h-full">
           <div className="flex-settings-left flex bg-darkGray-800 justify-end pt-16 pl-6">
             <div className="width-settings-sidebar pr-3">
-              <span className="flex flex-col text-darkGray-400 text-xs font-bold mb-2 ml-2">
-                USER SETTINGS
-              </span>
               {this.getPageButtons()}
             </div>
           </div>
