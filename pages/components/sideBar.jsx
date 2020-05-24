@@ -74,7 +74,7 @@ class SideBar extends Component {
   };
   getSideContent = () => {
     const LoadedPage = loadable(() => import("./" + this.state.selectedPage));
-    return <LoadedPage user={this.props.user} />;
+    return <LoadedPage user={this.props.user} {...this.state} />;
   };
   render() {
     return (

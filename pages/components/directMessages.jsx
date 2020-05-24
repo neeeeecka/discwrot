@@ -21,7 +21,9 @@ class DirectMessages extends Component {
   geFriendList = () => {
     const dom = [];
     this.state.friends.forEach(friend => {
-      dom.push(<UserRow {...friend} />);
+      if (friend.name.toLowerCase().includes(this.props.findText)) {
+        dom.push(<UserRow {...friend} />);
+      }
     });
     return dom;
   };
