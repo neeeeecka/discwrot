@@ -3,11 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserFriends } from "@fortawesome/free-solid-svg-icons";
 
 function DiscButton(props) {
+  let cAdd = props.className ? props.className : "";
   return (
     <div
       onClick={() => props.onClick(props)}
       className={
-        "flex cursor-pointer px-2 py-1.15 mb-1 rounded-md active:text-darkGray-100 " +
+        cAdd +
+        " flex cursor-pointer px-2 py-1.15 mb-1 rounded-md active:text-darkGray-100 " +
         (props.active
           ? " text-darkGray-100 bg-darkGray-650"
           : " hover:text-darkGray-150 text-darkGray-300 hover:bg-darkGray-700")
@@ -62,6 +64,7 @@ class DirectMessages extends Component {
     return (
       <React.Fragment>
         <DiscButton
+          className="mt-2"
           onClick={props => this.props.selectChannel("me")}
           active={this.props.selectedChannel.name === "me"}
         >
