@@ -14,6 +14,7 @@ module.exports = {
           "400": "#a8aaad",
           "300": "#bebfbf",
           "200": "#c1c1c1",
+          "150": "#DCDDDE",
           "100": "#fcfcfd"
         },
         accent: {
@@ -37,10 +38,17 @@ module.exports = {
       },
       width: {
         "100px": "100px",
+        "20px": "20px",
+
+        "15px": "15px",
+
         "4/7": "57%"
       },
       height: {
         "100px": "100px",
+        "20px": "20px",
+
+        "15px": "15px",
         "1/2": "0.13rem",
         "1px": "1px"
       },

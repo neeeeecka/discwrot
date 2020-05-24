@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import loadable from "@loadable/component";
 
 class Chat extends Component {
   state = {};
@@ -13,6 +16,23 @@ class Chat extends Component {
               {this.props.selectedChannel.name}
             </span>
           </span>
+        </div>
+        <div className="flex-1 flex flex-col">
+          <div className="flex-1">chat</div>
+          <div className="mb-6 mx-4 m-auto mb-0 rounded-md overflow-hidden flex">
+            <span className="my-auto bg-darkGray-600 h-full flex">
+              <button className="hover:bg-darkGray-150 bg-darkGray-300 my-auto ml-4 outline-none focus:outline-none rounded-full flex w-20px h-20px">
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  className="text-darkGray-600 m-auto sml-4 cursor-pointer"
+                />
+              </button>
+            </span>
+            <input
+              type="text"
+              className="flex-1 py-3 px-4 text-darkGray-200 bg-darkGray-600 outline-none"
+            />
+          </div>
         </div>
       </React.Fragment>
     );

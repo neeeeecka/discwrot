@@ -34,7 +34,9 @@ class UserApp extends Component {
           selectChannel={this.selectChannel}
           {...this.state}
         />
-        <div className="flex-1 overflow-hidden">{this.getRightNav()}</div>
+        <div className="flex-1 flex flex-col overflow-hidden">
+          {this.getRightNav()}
+        </div>
       </div>
     );
   }
