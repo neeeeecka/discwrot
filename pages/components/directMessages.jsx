@@ -5,7 +5,7 @@ class UserRow extends Component {
       <div className="flex cursor-pointer hover:bg-darkGray-700 px-3 py-2 rounded-md">
         <div className="user-head-small bg-darkGray-200"></div>
         <div className="text-darkGray-400 flex-1 flex">
-          <span className="m-auto ml-4">Morgenshtern</span>
+          <span className="m-auto ml-4">{this.props.name}</span>
         </div>
       </div>
     );
@@ -13,15 +13,25 @@ class UserRow extends Component {
 }
 class DirectMessages extends Component {
   state = {
-    friends: []
+    friends: [
+      { name: "Morgenshtern", state: "offline" },
+      { name: "BlackJader", state: "online" }
+    ]
+  };
+  geFriendList = () => {
+    const dom = [];
+    this.state.friends.forEach(friend => {
+      dom.push(<UserRow {...friend} />);
+    });
+    return dom;
   };
   render() {
     return (
       <React.Fragment>
-        <span className="text-xs px-3 mt-2 text-darkGray-400 font-medium">
+        <span className="text-xs px-3 text-darkGray-400 mb-2 mt-1 block font-medium">
           DIRECT MESSAGES
         </span>
-        <UserRow />
+        {this.geFriendList()}
       </React.Fragment>
     );
   }
