@@ -5,6 +5,7 @@ import {
   faHeadphones,
   faMicrophone
 } from "@fortawesome/free-solid-svg-icons";
+import loadable from "@loadable/component";
 
 class UserDockButton extends Component {
   render() {
@@ -65,22 +66,14 @@ class UserDock extends Component {
   }
 }
 
-class UserRow extends Component {
-  render() {
-    return (
-      <div className="flex cursor-pointer hover:bg-darkGray-700 px-3 py-2 rounded-md">
-        <div className="user-head-small bg-darkGray-200"></div>
-        <div className="text-darkGray-400 flex-1 flex">
-          <span className="m-auto ml-4">Morgenshtern</span>
-        </div>
-      </div>
-    );
-  }
-}
-
 class SideBar extends Component {
   state = {
-    findText: ""
+    findText: "",
+    selectedPage: "directMessages"
+  };
+  getSideContent = () => {
+    const LoadedPage = loadable(() => import("./" + this.state.selectedPage));
+    return <LoadedPage user={this.props.user} />;
   };
   render() {
     return (
@@ -99,12 +92,7 @@ class SideBar extends Component {
               onChange={e => this.setState({ findText: e.target.value })}
             />
           </div>
-          <div className="p-3 pt-1 px-2">
-            <span className="text-xs px-3 mt-2 text-darkGray-400 font-medium">
-              DIRECT MESSAGES
-            </span>
-            <UserRow />
-          </div>
+          <div className="p-3 pt-1 px-2">{this.getSideContent()}</div>
           <div className="bg-darkGray-850 p-2 m-auto mb-0 w-full">
             <UserDock
               user={this.props.user}
