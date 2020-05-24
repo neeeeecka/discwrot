@@ -3,10 +3,10 @@ import SideBar from "./sideBar";
 import loadable from "@loadable/component";
 
 class UserApp extends Component {
-  state = { rightNavState: "chat" };
+  state = { rightNavState: "chat", chatState: "dm" };
   getRightNav = () => {
     const LoadedPage = loadable(() => import("./" + this.state.rightNavState));
-    return <LoadedPage user={this.props.user} />;
+    return <LoadedPage user={this.props.user} {...this.state} />;
   };
   render() {
     return (
