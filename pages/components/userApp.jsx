@@ -32,6 +32,7 @@ class UserApp extends Component {
           user={this.props.user}
           openSettings={this.props.openSettings}
           selectChannel={this.selectChannel}
+          {...this.state}
         />
         <div className="flex-1">{this.getRightNav()}</div>
       </div>
