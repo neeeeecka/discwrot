@@ -7,7 +7,7 @@ class UserRow extends Component {
       <div
         onClick={() => this.props.onClick(this.props)}
         className={
-          "flex cursor-pointer px-2 py-1 mb-1 rounded-md" +
+          "flex cursor-pointer px-2 py-1.15 mb-1 rounded-md" +
           (this.props.selectedChannel.name === this.props.name
             ? " text-darkGray-100 bg-darkGray-650"
             : " text-darkGray-300 hover:bg-darkGray-700")
