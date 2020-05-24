@@ -5,7 +5,9 @@ import loadable from "@loadable/component";
 
 class Chat extends Component {
   state = {};
-
+  getChat = () => {
+    return;
+  };
   render() {
     return (
       <React.Fragment>
@@ -18,7 +20,7 @@ class Chat extends Component {
           </span>
         </div>
         <div className="flex-1 flex flex-col">
-          <div className="flex-1">chat</div>
+          <div className="flex-1">{this.getChat()}</div>
           <div className="mb-6 mx-4 m-auto mb-0 rounded-md overflow-hidden flex">
             <span className="my-auto bg-darkGray-600 h-full flex">
               <button className="hover:bg-darkGray-150 bg-darkGray-300 my-auto ml-4 outline-none focus:outline-none rounded-full flex w-20px h-20px">
@@ -30,7 +32,8 @@ class Chat extends Component {
             </span>
             <input
               type="text"
-              className="flex-1 py-3 px-4 text-darkGray-200 bg-darkGray-600 outline-none"
+              className="flex-1 py-3 px-4 placeholder-darkGray-550 text-darkGray-200 bg-darkGray-600 outline-none"
+              placeholder={"Message @" + this.props.selectedChannel.name}
             />
           </div>
         </div>

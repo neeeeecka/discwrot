@@ -10,6 +10,7 @@ module.exports = {
           "700": "#36393f",
           "600": "#3e4249",
           "650": "rgba(114,118,125,.3)",
+          "550": "#6D747D",
           "500": "#5b5d61",
           "400": "#a8aaad",
           "300": "#bebfbf",
@@ -60,6 +61,7 @@ module.exports = {
   variants: {
     borderRadius: ["hover"],
     backgroundColor: ["hover", "focus", "active"],
+    textColor: ["hover", "focus", "active"],
     outline: ["focus", "hover"]
   },
   plugins: []
