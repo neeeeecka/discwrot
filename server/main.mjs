@@ -2,7 +2,8 @@ import express from "express";
 import mongodb from "mongodb";
 import bodyParser from "body-parser";
 import cors from "cors";
-
+import * as http from "http";
+import SocketIO from "socket.io";
 import DBActions from "./dbActions.mjs";
 
 const MongoClient = mongodb.MongoClient;
@@ -73,5 +74,17 @@ app.delete("/users/:userId", async (req, res) => {
 });
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
+
+const io = SocketIO();
+io.on("connection", client => {
+  client.on("ferret", (name, cb) => {
+    cb("woot");
+  });
+  client.on("disconnect", () => {
+    /* … */
+  });
+});
+
+io.listen(2998);
 
 export default app;
