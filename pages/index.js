@@ -7,13 +7,21 @@ const cURL = "http://localhost:2999";
 class Index extends Component {
   state = {
     user: {
-      name: "White_Stardust",
-      uid: "9365",
-      email: "blackshtormx@gmail.com",
-      status: "Раздаю бонус коды на 279р"
+      name: "",
+      uid: "",
+      email: "",
+      status: ""
     },
     units: [],
     mainPageVisible: true
+  };
+  componentDidMount = async () => {
+    const sessionId = "dsfuhasfdjad32ewdsh";
+    let response = await fetch(`${cURL}/me/${sessionId}`, {
+      method: "GET"
+    });
+    let data = await response.json();
+    this.setState({ user: data });
   };
   openSettings = () => {
     this.setState({ mainPageVisible: false });

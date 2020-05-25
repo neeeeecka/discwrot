@@ -36,6 +36,13 @@ app.get("/", async (req, res) => {
   return res.send("Server is running");
 });
 
+app.get("/me/:sessionId", async (req, res) => {
+  const sessionId = req.params.sessionId;
+
+  const user = await dbActions.getCurrentUser(sessionId);
+  return res.send(user);
+});
+
 app.get("/users", async (req, res) => {
   const users = await dbActions.getUsers();
   const str = JSON.stringify(users);

@@ -25,14 +25,17 @@ class Settings extends Component {
   getPageButtons = () => {
     const dom = [];
 
-    Object.keys(this.state.settings).forEach(subSetting => {
+    Object.keys(this.state.settings).forEach((subSetting, i) => {
       const titled =
         subSetting.substring(0, subSetting.indexOf("S")) +
         " " +
         subSetting.substring(subSetting.indexOf("S"), subSetting.length);
 
       dom.push(
-        <span className="flex flex-col text-darkGray-400 text-xs font-bold mb-2 ml-2">
+        <span
+          key={i + "-title"}
+          className="flex flex-col text-darkGray-400 text-xs font-bold mb-2 ml-2"
+        >
           {titled.toUpperCase()}
         </span>
       );
@@ -57,7 +60,10 @@ class Settings extends Component {
         );
       });
       dom.push(
-        <span className="w-full h-1px bg-darkGray-700 block mt-2 mb-4" />
+        <span
+          key={i}
+          className="w-full h-1px bg-darkGray-700 block mt-2 mb-4"
+        />
       );
     });
     return dom;

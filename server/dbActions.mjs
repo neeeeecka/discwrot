@@ -8,9 +8,15 @@ class DBActions {
     this.userCollection = this.db.collection("users");
   };
 
+  getCurrentUser = async sessionId => {
+    let res = await this.userCollection
+      .find({ sessionId: sessionId })
+      .toArray();
+    return res[0];
+  };
+
   getUsers = async () => {
     let res = await this.userCollection.find({}).toArray();
-
     return res;
   };
   addUser = async userData => {

@@ -49,6 +49,7 @@ class DirectMessages extends Component {
       if (friend.name.toLowerCase().includes(this.props.findText)) {
         dom.push(
           <UserRow
+            key={friend.name + friend.targetId}
             {...friend}
             selectedChannel={this.props.selectedChannel}
             onClick={pFriend => {
