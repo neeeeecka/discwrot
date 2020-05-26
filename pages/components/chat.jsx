@@ -32,7 +32,7 @@ class Chat extends Component {
 
   componentDidMount = async () => {
     let response = await fetch(
-      `${this.props.cURL}/@me/${this.props.selectedChannel.id}`,
+      `${this.props.cURL}/channels/${this.props.selectedChannel.id}/messages`,
       {
         method: "GET",
         mode: "cors",

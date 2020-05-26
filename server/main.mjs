@@ -59,8 +59,8 @@ app.get("/@me", async (req, res) => {
   return res.send(user);
 });
 
-app.get("/@me/:chatId", async (req, res) => {
-  const chatId = req.params.chatId;
+app.get("/channels/:channelId/messages", async (req, res) => {
+  const channelId = req.params.channelId;
 });
 
 app.get("/users", async (req, res) => {
