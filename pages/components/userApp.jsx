@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import SideBar from "./sideBar";
 import loadable from "@loadable/component";
+import SocketIO from "socket.io-client";
 
 class UserApp extends Component {
   state = {
     rightNavState: "me",
-    selectedChannel: { name: "me", targetId: "" }
+    selectedChannel: { name: "me", targetId: "" },
+    io: null
   };
   selectChannel = (name, targetId) => {
     this.setState({ selectedChannel: { name: name, targetId: targetId } });
@@ -18,6 +20,19 @@ class UserApp extends Component {
     const LoadedPage = loadable(() => import("./" + rightNavState));
     return <LoadedPage user={this.props.user} {...this.state} />;
   };
+
+  componentDidMount = () => {
+    const io = SocketIO("ws://localhost:2998");
+    this.state.io = io;
+    io.emit(
+      "message",
+      { targetChannel: this.props.selectedChannel, message: {} },
+      data => {
+        console.log(data);
+      }
+    );
+  };
+
   render() {
     return (
       <div

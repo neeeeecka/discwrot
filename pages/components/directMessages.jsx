@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import SocketIO from "socket.io-client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserFriends } from "@fortawesome/free-solid-svg-icons";
 
@@ -44,12 +43,7 @@ class DirectMessages extends Component {
       { name: "Matejicek", state: "offline", targetId: "551" }
     ]
   };
-  componentDidMount = async () => {
-    const io = SocketIO("ws://localhost:2998");
-    io.emit("ferret", "tobi", data => {
-      console.log(data); // data will be 'woot'
-    });
-  };
+  componentDidMount = async () => {};
   geFriendList = () => {
     const dom = [];
     this.state.friends.forEach(friend => {

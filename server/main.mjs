@@ -76,9 +76,11 @@ app.delete("/users/:userId", async (req, res) => {
 app.listen(port, () => console.log(`Server listening on port ${port}!`));
 
 const io = SocketIO();
+
 io.on("connection", client => {
-  client.on("ferret", (name, cb) => {
-    cb("woot");
+  client.on("message", (destination, cb) => {
+    console.log(destination);
+    cb(destination);
   });
   client.on("disconnect", () => {
     /* … */

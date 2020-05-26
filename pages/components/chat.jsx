@@ -4,7 +4,9 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import loadable from "@loadable/component";
 
 class Chat extends Component {
-  state = {};
+  state = {
+    message: ""
+  };
   getChat = () => {
     return;
   };
@@ -34,6 +36,10 @@ class Chat extends Component {
               type="text"
               className="flex-1 py-3 px-4 placeholder-darkGray-550 text-darkGray-200 bg-darkGray-600 outline-none"
               placeholder={"Message @" + this.props.selectedChannel.name}
+              value={this.state.message}
+              onChange={e => {
+                this.setState({ message: e.target.value });
+              }}
             />
           </div>
         </div>
