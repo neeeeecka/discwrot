@@ -9,7 +9,12 @@ class Chat extends Component {
     messages: []
   };
   getChat = () => {
-    return null;
+    const dom = [];
+    console.log(this.state.messages);
+    this.state.messages.forEach(message => {
+      dom.push(<div>{message.content}</div>);
+    });
+    return dom;
   };
 
   writeMessage = e => {
@@ -39,6 +44,9 @@ class Chat extends Component {
         credentials: "include"
       }
     );
+    let data = await response.json();
+
+    this.setState({ messages: data });
   };
 
   render() {

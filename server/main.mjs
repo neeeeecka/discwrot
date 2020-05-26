@@ -73,7 +73,6 @@ app.get("/channels/:channelId/messages", async (req, res) => {
   const channelId = req.params.channelId;
 
   let result = await dbActions.getMessages(channelId);
-  console.log(result);
   if (result) {
     res.status(200);
   } else {
