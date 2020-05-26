@@ -54,7 +54,8 @@ module.exports = {
         "1px": "1px"
       },
       padding: {
-        "1.15": "0.35rem"
+        "1.15": "0.35rem",
+        "18": "4.5rem"
       }
     }
   },

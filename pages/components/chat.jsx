@@ -12,7 +12,9 @@ class Chat extends Component {
     const dom = [];
     console.log(this.state.messages);
     this.state.messages.forEach(message => {
-      dom.push(<div>{message.content}</div>);
+      dom.unshift(
+        <div className="py-2 pl-18 text-darkGray-150">{message.content}</div>
+      );
     });
     return dom;
   };
@@ -60,8 +62,20 @@ class Chat extends Component {
             </span>
           </span>
         </div>
-        <div className="flex-1 flex flex-col">
-          <div className="flex-1">{this.getChat()}</div>
+        <div
+          className="flex-1 flex flex-col"
+          style={{ maxHeight: "calc(100% - 48px)" }}
+        >
+          <div
+            className="flex-1 overflow-y-auto pb-4"
+            ref={el => {
+              if (el) {
+                el.scrollTo(0, el.scrollHeight);
+              }
+            }}
+          >
+            {this.getChat()}
+          </div>
           <div className="mb-6 mx-4 m-auto mb-0 rounded-md overflow-hidden flex">
             <span className="my-auto bg-darkGray-600 h-full flex">
               <button className="hover:bg-darkGray-150 bg-darkGray-300 my-auto ml-4 outline-none focus:outline-none rounded-full flex w-20px h-20px">
