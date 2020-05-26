@@ -6,11 +6,13 @@ import SocketIO from "socket.io-client";
 class UserApp extends Component {
   state = {
     rightNavState: "me",
-    selectedChannel: { name: "me", targetId: "" },
+    selectedChannel: { name: "me", targetId: "", id: "" },
     io: null
   };
-  selectChannel = (name, targetId) => {
-    this.setState({ selectedChannel: { name: name, targetId: targetId } });
+  selectChannel = (name, targetId, id) => {
+    this.setState({
+      selectedChannel: { name: name, targetId: targetId, id: id }
+    });
   };
   getRightNav = () => {
     let rightNavState = this.state.selectedChannel.name;
@@ -18,19 +20,14 @@ class UserApp extends Component {
       rightNavState = "chat";
     }
     const LoadedPage = loadable(() => import("./" + rightNavState));
-    return <LoadedPage user={this.props.user} {...this.state} />;
+    return (
+      <LoadedPage user={this.props.user} {...this.state} {...this.props} />
+    );
   };
 
   componentDidMount = () => {
     const io = SocketIO("ws://localhost:2998");
     this.state.io = io;
-    io.emit(
-      "message",
-      { targetChannel: this.props.selectedChannel, message: {} },
-      data => {
-        console.log(data);
-      }
-    );
   };
 
   render() {
@@ -45,6 +42,7 @@ class UserApp extends Component {
       >
         <SideBar
           user={this.props.user}
+          cURL={this.props.cURL}
           openSettings={this.props.openSettings}
           selectChannel={this.selectChannel}
           {...this.state}

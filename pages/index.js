@@ -2,23 +2,24 @@ import React, { Component } from "react";
 import Settings from "./components/settings/settings";
 import UserApp from "./components/userApp";
 
-const cURL = "http://localhost:2999";
-
 class Index extends Component {
   state = {
     user: {
       name: "",
+      channels: [],
       uid: "",
       email: "",
       status: ""
     },
     units: [],
-    mainPageVisible: true
+    mainPageVisible: true,
+    cURL: "http://localhost:2999"
   };
   componentDidMount = async () => {
-    const sessionId = "dsfuhasfdjad32ewdsh";
-    let response = await fetch(`${cURL}/me/${sessionId}`, {
-      method: "GET"
+    let response = await fetch(`${this.state.cURL}/@me`, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include"
     });
     let data = await response.json();
     this.setState({ user: data });
@@ -32,11 +33,7 @@ class Index extends Component {
   render() {
     return (
       <div className="relative overflow-hidden">
-        <UserApp
-          user={this.state.user}
-          openSettings={this.openSettings}
-          mainPageVisible={this.state.mainPageVisible}
-        />
+        <UserApp openSettings={this.openSettings} {...this.state} />
         <Settings
           mainPageVisible={this.state.mainPageVisible}
           closeSettings={this.closeSettings}

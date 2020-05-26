@@ -12,6 +12,7 @@ class DBActions {
     let res = await this.userCollection
       .find({ sessionId: sessionId })
       .toArray();
+
     return res[0];
   };
 

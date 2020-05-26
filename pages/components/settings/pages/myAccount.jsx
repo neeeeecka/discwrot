@@ -12,7 +12,9 @@ class MyAccount extends Component {
             </span>
             <span className="text-sm text-darkGray-400">
               {this.props.user.name}
-              <span className="text-darkGray-500">#{this.props.user.uid}</span>
+              <span className="text-darkGray-500">
+                #{this.props.user.separator}
+              </span>
             </span>
           </div>
           <div className="flex flex-col mt-auto mb-0">

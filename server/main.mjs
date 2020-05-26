@@ -7,6 +7,9 @@ import SocketIO from "socket.io";
 import DBActions from "./dbActions.mjs";
 
 const MongoClient = mongodb.MongoClient;
+
+import cookieParser from "cookie-parser";
+
 // Connection URL
 const url = "mongodb://localhost:27017";
 const dbName = "discwrot";
@@ -31,17 +34,33 @@ app.use(
     // extended: true
   })
 );
-app.use(cors());
+app.use(cookieParser());
+
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:3000"
+  })
+);
 
 app.get("/", async (req, res) => {
   return res.send("Server is running");
 });
 
-app.get("/me/:sessionId", async (req, res) => {
-  const sessionId = req.params.sessionId;
+app.get("/@me", async (req, res) => {
+  const sessionId = req.cookies.sessionId;
 
   const user = await dbActions.getCurrentUser(sessionId);
+  if (user) {
+    res.status(200);
+  } else {
+    res.status(401);
+  }
   return res.send(user);
+});
+
+app.get("/@me/:chatId", async (req, res) => {
+  const chatId = req.params.chatId;
 });
 
 app.get("/users", async (req, res) => {

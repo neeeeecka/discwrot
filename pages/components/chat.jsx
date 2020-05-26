@@ -5,11 +5,42 @@ import loadable from "@loadable/component";
 
 class Chat extends Component {
   state = {
-    message: ""
+    message: "",
+    messages: []
   };
   getChat = () => {
-    return;
+    return null;
   };
+
+  writeMessage = e => {
+    this.setState({ message: e.target.value });
+  };
+
+  sendMessage = () => {
+    this.props.io.emit(
+      "message",
+      {
+        targetChannel: this.props.selectedChannel,
+        message: this.state.message
+      },
+      data => {
+        console.log(data);
+      }
+    );
+    this.setState({ message: "" });
+  };
+
+  componentDidMount = async () => {
+    let response = await fetch(
+      `${this.props.cURL}/@me/${this.props.selectedChannel.id}`,
+      {
+        method: "GET",
+        mode: "cors",
+        credentials: "include"
+      }
+    );
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -37,8 +68,12 @@ class Chat extends Component {
               className="flex-1 py-3 px-4 placeholder-darkGray-550 text-darkGray-200 bg-darkGray-600 outline-none"
               placeholder={"Message @" + this.props.selectedChannel.name}
               value={this.state.message}
-              onChange={e => {
-                this.setState({ message: e.target.value });
+              onChange={this.writeMessage}
+              onKeyDown={e => {
+                //enter key press
+                if (e.keyCode === 13) {
+                  this.sendMessage();
+                }
               }}
             />
           </div>

@@ -5,8 +5,13 @@ import { faUserFriends } from "@fortawesome/free-solid-svg-icons";
 function DiscButton(props) {
   let cAdd = props.className ? props.className : "";
   return (
-    <div
-      onClick={() => props.onClick(props)}
+    <a
+      href={props.href}
+      onClick={ev => {
+        ev.preventDefault();
+        props.onClick(props);
+        return false;
+      }}
       className={
         cAdd +
         " flex cursor-pointer px-2 py-1.15 mb-1 rounded-md active:text-darkGray-100 " +
@@ -16,7 +21,7 @@ function DiscButton(props) {
       }
     >
       {props.children}
-    </div>
+    </a>
   );
 }
 
@@ -36,25 +41,28 @@ class UserRow extends Component {
   }
 }
 class DirectMessages extends Component {
-  state = {
-    friends: [
-      { name: "Morgenshtern", state: "offline", targetId: "552" },
-      { name: "BlackJader", state: "online", targetId: "323" },
-      { name: "Matejicek", state: "offline", targetId: "551" }
-    ]
-  };
+  state = {};
   componentDidMount = async () => {};
   geFriendList = () => {
     const dom = [];
-    this.state.friends.forEach(friend => {
-      if (friend.name.toLowerCase().includes(this.props.findText)) {
+    Object.keys(this.props.user.channels).forEach(friend => {
+      const sep = friend.indexOf("#");
+      const name = friend.substring(0, sep);
+      const separator = friend.substring(sep, friend.length);
+      const channelId = this.props.user.channels[friend];
+      if (friend.toLowerCase().includes(this.props.findText)) {
         dom.push(
           <UserRow
-            key={friend.name + friend.targetId}
-            {...friend}
+            key={friend}
+            href={`/@me/${channelId}`}
+            {...{ name: name, separator: separator, channelId: channelId }}
             selectedChannel={this.props.selectedChannel}
-            onClick={pFriend => {
-              this.props.selectChannel(pFriend.name, pFriend.targetId);
+            onClick={props => {
+              this.props.selectChannel(
+                props.name,
+                props.separator,
+                props.channelId
+              );
             }}
           />
         );
@@ -66,6 +74,7 @@ class DirectMessages extends Component {
     return (
       <React.Fragment>
         <DiscButton
+          href={`/@me/`}
           className="mt-2"
           onClick={props => this.props.selectChannel("me")}
           active={this.props.selectedChannel.name === "me"}
