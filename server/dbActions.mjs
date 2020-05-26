@@ -6,11 +6,20 @@ class DBActions {
   init = db => {
     this.db = db;
     this.userCollection = this.db.collection("users");
+    this.channelCollection = this.db.collection("channels");
   };
 
   getCurrentUser = async sessionId => {
     let res = await this.userCollection
       .find({ sessionId: sessionId })
+      .toArray();
+
+    return res[0];
+  };
+
+  getMessages = async channelId => {
+    let res = await this.channelCollection
+      .find({ channelId: channelId })
       .toArray();
 
     return res[0];

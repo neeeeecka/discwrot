@@ -43,13 +43,23 @@ app.use(
   })
 );
 
+const userAuthenticator = async (req, res, next) => {
+  const sessionId = req.cookies.sessionId;
+  const user = await dbActions.getCurrentUser(sessionId);
+  if (user) {
+    res.status(200);
+  } else {
+    res.status(401);
+  }
+  next();
+};
+
 app.get("/", async (req, res) => {
   return res.send("Server is running");
 });
 
 app.get("/@me", async (req, res) => {
   const sessionId = req.cookies.sessionId;
-
   const user = await dbActions.getCurrentUser(sessionId);
   if (user) {
     res.status(200);
@@ -61,6 +71,17 @@ app.get("/@me", async (req, res) => {
 
 app.get("/channels/:channelId/messages", async (req, res) => {
   const channelId = req.params.channelId;
+
+  let result = await dbActions.getMessages(channelId);
+  console.log(result);
+  if (result) {
+    res.status(200);
+  } else {
+    res.status(500);
+    result = { messages: [] };
+  }
+
+  res.send(result.messages);
 });
 
 app.get("/users", async (req, res) => {
