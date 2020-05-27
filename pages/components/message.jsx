@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlus,
-  faPhone,
-  faFileDownload
-} from "@fortawesome/free-solid-svg-icons";
+import { faPhone, faFileDownload } from "@fortawesome/free-solid-svg-icons";
 
 const FlatContent = props => (
   <div
@@ -36,8 +32,8 @@ class Message extends Component {
     const withAuthor = this.props.withAuthor;
     const date = new Date(this.props.timestamp * 1000);
     const HourMin = date.getHours() + ":" + date.getMinutes();
-    const DMY =
-      date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear();
+    let DMY = date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear();
+
     let dom;
     if (message.content) {
       if (withAuthor) {
@@ -47,11 +43,8 @@ class Message extends Component {
             <div>
               <span className="hover:underline cursor-pointer">
                 {message.author.username}
-                <span className="text-darkGray-400 text-xs ml-2">
-                  {" "}
-                  at {DMY}
-                </span>
               </span>
+              <span className="text-darkGray-400 text-xs ml-2"> at {DMY}</span>
               <FlatContent>{message.content}</FlatContent>
             </div>
           </div>

@@ -6,7 +6,18 @@ body {
   @apply bg-darkGray-700;
   /* font-family: sans-serif; */
 }
-
+::-webkit-scrollbar {
+  width: 8px; /* width of the entire scrollbar */
+}
+::-webkit-scrollbar-track {
+  @apply bg-darkGray-800; /* color of the tracking area */
+  border: solid 3px transparent;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 20px; /* roundness of the scroll thumb */
+  @apply bg-accent-900;
+  border: solid 3px transparent;
+}
 .scale-anim-95 {
   transform: scale(0.95);
 }
