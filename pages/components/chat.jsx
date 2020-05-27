@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faPhone,
+  faFileDownload
+} from "@fortawesome/free-solid-svg-icons";
 import loadable from "@loadable/component";
 
 class Chat extends Component {
@@ -25,6 +29,7 @@ class Chat extends Component {
           {message.content}
         </div>
       );
+
       let withAuthor = false;
       const prevMessage = messages[i + 1];
       if (prevMessage) {
@@ -34,26 +39,67 @@ class Chat extends Component {
         if (delta / 1000 / 60 >= 15) {
           withAuthor = true;
         }
-        console.log(delta / 1000 / 60, message, prevMessage, withAuthor);
+        // console.log(delta / 1000 / 60, message, prevMessage, withAuthor);
 
         if (message.author.id !== prevMessage.author.id) {
           withAuthor = true;
         }
       }
-      if (withAuthor) {
-        dom.unshift(
-          <div className="py-2 pl-4 text-base text-darkGray-100 hover:bg-darkGray-750 flex">
-            <div className="w-40px h-40px rounded-full bg-darkGray-400 m-auto ml-0 mr-4"></div>
-            <div>
-              <span className="hover:underline cursor-pointer">
-                {message.author.username}
-              </span>
-              {msg(" pl-0")}
+      if (message.content) {
+        if (withAuthor) {
+          dom.unshift(
+            <div className="py-2 pl-4 text-base text-darkGray-100 hover:bg-darkGray-750 flex">
+              <div className="w-40px h-40px rounded-full bg-darkGray-400 m-auto ml-0 mr-4"></div>
+              <div>
+                <span className="hover:underline cursor-pointer">
+                  {message.author.username}
+                </span>
+                {msg(" pl-0")}
+              </div>
             </div>
-          </div>
-        );
+          );
+        } else {
+          dom.unshift(msg(" pl-18"));
+        }
       } else {
-        dom.unshift(msg(" pl-18"));
+        if (message.call) {
+          dom.unshift(
+            <div className="py-0.5 my-3 pl-4 text-base text-darkGray-100 hover:bg-darkGray-750 flex">
+              <div className="w-40px m-auto ml-0 mr-4 flex">
+                <FontAwesomeIcon
+                  icon={faPhone}
+                  className="text-green-500 m-auto sml-4"
+                  style={{ transform: "rotate(90deg)" }}
+                />
+              </div>
+              <div>
+                <span className="hover:underline cursor-pointer">
+                  {message.author.username}
+                </span>
+                <span className="text-darkGray-400"> started a call</span>
+              </div>
+            </div>
+          );
+        }
+        if (message.attachments.length) {
+          dom.unshift(
+            <div className="py-0.5 my-3 pl-4 text-base text-darkGray-100 hover:bg-darkGray-750 flex">
+              <div className="w-40px m-auto ml-0 mr-4 flex">
+                <FontAwesomeIcon
+                  icon={faFileDownload}
+                  className="text-accent-500 m-auto sml-4 cursor-pointer"
+                  //   style={{ transform: "rotate(90deg)" }}
+                />
+              </div>
+              <div>
+                <span className="hover:underline cursor-pointer">
+                  {message.author.username}
+                </span>
+                <span className="text-darkGray-400"> sent an attachment</span>
+              </div>
+            </div>
+          );
+        }
       }
     });
     return dom;
