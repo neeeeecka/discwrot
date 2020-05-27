@@ -55,8 +55,12 @@ module.exports = {
         "1px": "1px"
       },
       padding: {
+        "0.5": "0.15rem",
         "1.15": "0.35rem",
         "18": "4.5rem"
+      },
+      fontSize: {
+        "base-mil": "0.95rem"
       }
     }
   },
@@ -64,7 +68,8 @@ module.exports = {
     borderRadius: ["hover"],
     backgroundColor: ["hover", "focus", "active"],
     textColor: ["hover", "focus", "active"],
-    outline: ["focus", "hover"]
+    outline: ["focus", "hover"],
+    textDecoration: ["hover", "focus"]
   },
   plugins: []
 };

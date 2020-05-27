@@ -13,8 +13,14 @@ class Chat extends Component {
     // console.log(this.state.messages);
     const messages = this.state.messages;
     messages.forEach((message, i) => {
+      const timestamp1 = Date.parse(message.timestamp);
+
       const msg = add => (
-        <div className={"text-darkGray-150 hover:bg-darkGray-750" + add}>
+        <div
+          className={
+            "text-darkGray-150 py-0.5 text-base-mil hover:bg-darkGray-750" + add
+          }
+        >
           {message.content}
         </div>
       );
@@ -22,7 +28,6 @@ class Chat extends Component {
       const prevMessage = messages[i + 1];
       if (prevMessage) {
         const timestamp0 = Date.parse(prevMessage.timestamp);
-        const timestamp1 = Date.parse(message.timestamp);
 
         const delta = timestamp1 - timestamp0;
         if (delta / 1000 / 60 >= 15) {
@@ -36,8 +41,10 @@ class Chat extends Component {
       }
       if (withAuthor) {
         dom.unshift(
-          <div className="py-2 pl-18 text-lg text-darkGray-100 hover:bg-darkGray-750">
-            {message.author.username}
+          <div className="py-2 pl-18 text-base text-darkGray-100 hover:bg-darkGray-750">
+            <span className="hover:underline cursor-pointer">
+              {message.author.username}
+            </span>
             {msg(" pl-0")}
           </div>
         );
