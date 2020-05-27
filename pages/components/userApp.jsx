@@ -10,9 +10,11 @@ class UserApp extends Component {
     io: null
   };
   selectChannel = (name, targetId, id) => {
-    this.setState({
-      selectedChannel: { name: name, targetId: targetId, id: id }
-    });
+    if (this.state.selectedChannel.id !== id) {
+      this.setState({
+        selectedChannel: { name: name, targetId: targetId, id: id }
+      });
+    }
   };
   getRightNav = () => {
     let rightNavState = this.state.selectedChannel.name;
@@ -21,7 +23,13 @@ class UserApp extends Component {
     }
     const LoadedPage = loadable(() => import("./" + rightNavState));
     return (
-      <LoadedPage user={this.props.user} {...this.state} {...this.props} />
+      <LoadedPage
+        user={this.props.user}
+        {...this.state}
+        {...this.props}
+        selectedChannel={JSON.parse(JSON.stringify(this.state.selectedChannel))}
+        selectedChannelId={this.state.selectedChannel.id}
+      />
     );
   };
 
@@ -46,6 +54,9 @@ class UserApp extends Component {
           openSettings={this.props.openSettings}
           selectChannel={this.selectChannel}
           {...this.state}
+          selectedChannel={JSON.parse(
+            JSON.stringify(this.state.selectedChannel)
+          )}
         />
         <div className="flex-1 flex flex-col overflow-hidden">
           {this.getRightNav()}
