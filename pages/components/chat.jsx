@@ -37,7 +37,12 @@ class Chat extends Component {
       }
 
       dom.unshift(
-        <Message key={"msg-" + i} message={message} withAuthor={withAuthor} />
+        <Message
+          key={"msg-" + i}
+          message={message}
+          withAuthor={withAuthor}
+          timestamp={timestamp1}
+        />
       );
     });
     return dom;
