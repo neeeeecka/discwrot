@@ -11,12 +11,19 @@ const FlatNonContent = props => (
   <div
     className={
       "text-base text-darkGray-100 hover:bg-darkGray-750 flex" +
-      props.className +
+      (props.className ? props.className : "") +
       (props.icon ? " my-3 py-1" : "")
     }
   >
     {props.icon ? <div className="w-40px flex mx-4">{props.icon}</div> : null}
-    <div>{props.children}</div>
+    <div>
+      {props.author ? (
+        <span className="hover:underline cursor-pointer">
+          {props.author.username}
+        </span>
+      ) : null}
+      {props.children}
+    </div>
   </div>
 );
 //  <span className="hover:underline cursor-pointer">
@@ -55,7 +62,6 @@ class Message extends Component {
       if (message.call) {
         dom = (
           <FlatNonContent
-            className=" pl-0"
             icon={
               <FontAwesomeIcon
                 icon={faPhone}
@@ -63,21 +69,26 @@ class Message extends Component {
                 style={{ transform: "rotate(90deg)" }}
               />
             }
+            author={message.author}
           >
-            <span className="hover:underline cursor-pointer">
-              {message.author.username}
-            </span>
             <span className="text-darkGray-400"> started a call</span>
           </FlatNonContent>
         );
       }
       if (message.attachments.length) {
-        //   <FontAwesomeIcon
-        //     icon={faFileDownload}
-        //     className="text-accent-500 m-auto sml-4 cursor-pointer"
-        //     //   style={{ transform: "rotate(90deg)" }}
-        //   />
-        dom = null;
+        dom = (
+          <FlatNonContent
+            icon={
+              <FontAwesomeIcon
+                icon={faFileDownload}
+                className="text-accent-500 m-auto sml-4 cursor-pointer"
+              />
+            }
+            author={message.author}
+          >
+            <span className="text-darkGray-400"> sent an attachment</span>
+          </FlatNonContent>
+        );
       }
     }
     return dom;
