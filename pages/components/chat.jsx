@@ -14,13 +14,22 @@ class Chat extends Component {
     const messages = this.state.messages;
     messages.forEach((message, i) => {
       const msg = add => (
-        <div className={"py-0 text-darkGray-150 hover:bg-darkGray-750" + add}>
+        <div className={"text-darkGray-150 hover:bg-darkGray-750" + add}>
           {message.content}
         </div>
       );
       let withAuthor = false;
-      if (messages[i - 1]) {
-        if (message.author.id !== messages[i - 1].author.id) {
+      const nextMessage = messages[i - 1];
+      if (nextMessage) {
+        const timestamp0 = Date.parse(nextMessage.timestamp);
+        const timestamp1 = Date.parse(message.timestamp);
+
+        const delta = timestamp0 - timestamp1;
+        if (delta / 1000 / 60 >= 15) {
+          withAuthor = true;
+        }
+
+        if (message.author.id !== nextMessage.author.id) {
           withAuthor = true;
         }
       }
