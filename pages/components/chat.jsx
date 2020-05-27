@@ -19,24 +19,25 @@ class Chat extends Component {
         </div>
       );
       let withAuthor = false;
-      const nextMessage = messages[i - 1];
-      if (nextMessage) {
-        const timestamp0 = Date.parse(nextMessage.timestamp);
+      const prevMessage = messages[i + 1];
+      if (prevMessage) {
+        const timestamp0 = Date.parse(prevMessage.timestamp);
         const timestamp1 = Date.parse(message.timestamp);
 
-        const delta = timestamp0 - timestamp1;
+        const delta = timestamp1 - timestamp0;
         if (delta / 1000 / 60 >= 15) {
           withAuthor = true;
         }
+        console.log(delta / 1000 / 60, message, prevMessage, withAuthor);
 
-        if (message.author.id !== nextMessage.author.id) {
+        if (message.author.id !== prevMessage.author.id) {
           withAuthor = true;
         }
       }
       if (withAuthor) {
         dom.unshift(
           <div className="py-2 pl-18 text-lg text-darkGray-100 hover:bg-darkGray-750">
-            {messages[i - 1].author.username}
+            {message.author.username}
             {msg(" pl-0")}
           </div>
         );
