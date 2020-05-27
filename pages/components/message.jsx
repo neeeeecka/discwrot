@@ -7,7 +7,7 @@ import {
   faFileDownload
 } from "@fortawesome/free-solid-svg-icons";
 
-const FlatNonContent = props => (
+const FlatContent = props => (
   <div
     className={
       "text-base text-darkGray-100 hover:bg-darkGray-750 flex" +
@@ -26,10 +26,7 @@ const FlatNonContent = props => (
     </div>
   </div>
 );
-//  <span className="hover:underline cursor-pointer">
-//     {props.message.author.username}
-//   </span>
-//   <span className="text-darkGray-400"> {props.children}</span>
+
 class Message extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return nextProps.message.content !== this.props.message.content;
@@ -47,21 +44,17 @@ class Message extends Component {
               <span className="hover:underline cursor-pointer">
                 {message.author.username}
               </span>
-              <FlatNonContent className=" pl-0">
-                {message.content}
-              </FlatNonContent>
+              <FlatContent className=" pl-0">{message.content}</FlatContent>
             </div>
           </div>
         );
       } else {
-        dom = (
-          <FlatNonContent className=" pl-18">{message.content}</FlatNonContent>
-        );
+        dom = <FlatContent className=" pl-18">{message.content}</FlatContent>;
       }
     } else {
       if (message.call) {
         dom = (
-          <FlatNonContent
+          <FlatContent
             icon={
               <FontAwesomeIcon
                 icon={faPhone}
@@ -72,12 +65,12 @@ class Message extends Component {
             author={message.author}
           >
             <span className="text-darkGray-400"> started a call</span>
-          </FlatNonContent>
+          </FlatContent>
         );
       }
       if (message.attachments.length) {
         dom = (
-          <FlatNonContent
+          <FlatContent
             icon={
               <FontAwesomeIcon
                 icon={faFileDownload}
@@ -87,7 +80,7 @@ class Message extends Component {
             author={message.author}
           >
             <span className="text-darkGray-400"> sent an attachment</span>
-          </FlatNonContent>
+          </FlatContent>
         );
       }
     }
