@@ -18,7 +18,8 @@ class Chat extends Component {
       const msg = add => (
         <div
           className={
-            "text-darkGray-150 py-0.5 text-base-mil hover:bg-darkGray-750" + add
+            "text-darkGray-150 py-0.5 text-base-mil hover:bg-darkGray-750 flex-1 m-auto mb-0 ml-0" +
+            add
           }
         >
           {message.content}
@@ -41,11 +42,14 @@ class Chat extends Component {
       }
       if (withAuthor) {
         dom.unshift(
-          <div className="py-2 pl-18 text-base text-darkGray-100 hover:bg-darkGray-750">
-            <span className="hover:underline cursor-pointer">
-              {message.author.username}
-            </span>
-            {msg(" pl-0")}
+          <div className="py-2 pl-4 text-base text-darkGray-100 hover:bg-darkGray-750 flex">
+            <div className="w-40px h-40px rounded-full bg-darkGray-400 m-auto ml-0 mr-4"></div>
+            <div>
+              <span className="hover:underline cursor-pointer">
+                {message.author.username}
+              </span>
+              {msg(" pl-0")}
+            </div>
           </div>
         );
       } else {

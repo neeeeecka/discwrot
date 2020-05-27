@@ -41,7 +41,8 @@ module.exports = {
       width: {
         "100px": "100px",
         "20px": "20px",
-
+        "30px": "30px",
+        "40px": "40px",
         "15px": "15px",
 
         "4/7": "57%"
@@ -49,13 +50,15 @@ module.exports = {
       height: {
         "100px": "100px",
         "20px": "20px",
+        "30px": "30px",
+        "40px": "40px",
 
         "15px": "15px",
         "1/2": "0.13rem",
         "1px": "1px"
       },
       padding: {
-        "0.5": "0.15rem",
+        "0.5": "0.1rem",
         "1.15": "0.35rem",
         "18": "4.5rem"
       },
