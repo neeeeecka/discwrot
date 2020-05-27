@@ -10,11 +10,30 @@ class Chat extends Component {
   };
   getChat = () => {
     const dom = [];
-    console.log(this.state.messages);
-    this.state.messages.forEach(message => {
-      dom.unshift(
-        <div className="py-2 pl-18 text-darkGray-150">{message.content}</div>
+    // console.log(this.state.messages);
+    const messages = this.state.messages;
+    messages.forEach((message, i) => {
+      const msg = add => (
+        <div className={"py-0 text-darkGray-150 hover:bg-darkGray-750" + add}>
+          {message.content}
+        </div>
       );
+      let withAuthor = false;
+      if (messages[i - 1]) {
+        if (message.author.id !== messages[i - 1].author.id) {
+          withAuthor = true;
+        }
+      }
+      if (withAuthor) {
+        dom.unshift(
+          <div className="py-2 pl-18 text-lg text-darkGray-100 hover:bg-darkGray-750">
+            {messages[i - 1].author.username}
+            {msg(" pl-0")}
+          </div>
+        );
+      } else {
+        dom.unshift(msg(" pl-18"));
+      }
     });
     return dom;
   };
