@@ -43,6 +43,10 @@ class Chat extends Component {
 
         if (message.author.id !== prevMessage.author.id) {
           withAuthor = true;
+        } else {
+          if (!prevMessage.content.length && message.content.length) {
+            withAuthor = true;
+          }
         }
       }
       if (message.content) {
