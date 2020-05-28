@@ -59,12 +59,7 @@ class Chat extends Component {
         targetChannel: this.props.selectedChannel,
         content: this.state.message
       },
-      data => {
-        const newMessages = [...this.state.messages];
-        newMessages.unshift(data);
-        this.setState({ messages: newMessages });
-        console.log(data);
-      }
+      data => {}
     );
     this.setState({ message: "" });
   };
@@ -83,6 +78,13 @@ class Chat extends Component {
     let data = await response.json();
 
     this.setState({ messages: data });
+
+    this.props.io.on("recieve", async data => {
+      const newMessages = [...this.state.messages];
+      newMessages.unshift(data);
+      this.setState({ messages: newMessages });
+      console.log(data);
+    });
   };
 
   render() {

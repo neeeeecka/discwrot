@@ -116,15 +116,23 @@ app.listen(port, () => console.log(`Server listening on port ${port}!`));
 
 const io = SocketIO();
 
+const connectedPeers = {};
+
 io.on("connection", client => {
   client.on("authorize", async (sessionId, cb) => {
     const user = await dbActions.getCurrentUser(sessionId);
+    connectedPeers[user.userId] = client;
     if (user) {
       client.on("message", async (message, cb) => {
         message.author = user;
-        const result = await dbActions.messageChannel(message);
-
-        cb(result);
+        const resultMessage = await dbActions.messageChannel(message);
+        const channel = await dbActions.getChannel(message.targetChannel.id);
+        channel.users.forEach(userId => {
+          // connectedPeers[userId].send(resultMessage);
+          console.log(userId);
+          io.to(connectedPeers[userId].id).emit("recieve", resultMessage);
+        });
+        // cb(resultMessage);
       });
     }
     cb(user);

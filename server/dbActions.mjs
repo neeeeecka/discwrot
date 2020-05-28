@@ -25,7 +25,7 @@ class Message {
   constructor(object) {
     this.data.channel_id = object.targetChannel.id;
     this.data.author.username = object.author.name;
-    this.data.author.id = object.author.id;
+    this.data.author.id = object.author.userId;
     const date = new Date();
     this.data.timestamp = date.toISOString();
     if (object.content) {
@@ -60,6 +60,11 @@ class DBActions {
       .toArray();
 
     return res[0];
+  };
+  getChannel = async channelId => {
+    let query = await this.channelCollection.findOne({ channelId: channelId });
+
+    return query;
   };
   messageChannel = async message => {
     // targetChannel: { name: 'BlackJader', targetId: '#9999', id: '490169512679833621' }
