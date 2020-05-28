@@ -4,6 +4,14 @@ import UserApp from "./components/userApp";
 import * as Cookies from "js-cookie";
 
 class Index extends Component {
+  static getInitialProps({ req }) {
+    if (req) {
+      console.log("on server, need to copy cookies from req");
+    } else {
+      console.log("on client, cookies are automatic");
+    }
+    return {};
+  }
   state = {
     user: {
       name: "",
