@@ -116,12 +116,14 @@ app.listen(port, () => console.log(`Server listening on port ${port}!`));
 
 const io = SocketIO();
 
+//better save such stuff in DB but ok
 const connectedPeers = {};
 
 io.on("connection", client => {
   client.on("authorize", async (sessionId, cb) => {
+    console.log(client.id + " -connected");
     const user = await dbActions.getCurrentUser(sessionId);
-    connectedPeers[user.userId] = client;
+    connectedPeers[user.userId] = client.id;
     if (user) {
       client.on("message", async (message, cb) => {
         message.author = user;
@@ -130,7 +132,7 @@ io.on("connection", client => {
         channel.users.forEach(userId => {
           // connectedPeers[userId].send(resultMessage);
           console.log(userId);
-          io.to(connectedPeers[userId].id).emit("recieve", resultMessage);
+          io.to(connectedPeers[userId]).emit("recieve", resultMessage);
         });
         // cb(resultMessage);
       });
@@ -139,7 +141,8 @@ io.on("connection", client => {
   });
 
   client.on("disconnect", () => {
-    /* … */
+    delete connectedPeers[client.id];
+    console.log(client.id + " -disconnected");
   });
 });
 
