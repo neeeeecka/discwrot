@@ -131,7 +131,6 @@ io.on("connection", client => {
         const channel = await dbActions.getChannel(message.targetChannel.id);
         channel.users.forEach(userId => {
           // connectedPeers[userId].send(resultMessage);
-          console.log(userId);
           io.to(connectedPeers[userId]).emit("recieve", resultMessage);
         });
         // cb(resultMessage);
