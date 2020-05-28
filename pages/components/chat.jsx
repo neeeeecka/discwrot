@@ -57,9 +57,12 @@ class Chat extends Component {
       "message",
       {
         targetChannel: this.props.selectedChannel,
-        message: this.state.message
+        content: this.state.message
       },
       data => {
+        const newMessages = [...this.state.messages];
+        newMessages.unshift(data);
+        this.setState({ messages: newMessages });
         console.log(data);
       }
     );

@@ -16,7 +16,6 @@ class LoadedPage extends Component {
       <Loaded
         {...this.props}
         selectedChannel={JSON.parse(JSON.stringify(this.props.selectedChannel))}
-        selectedChannelId={this.props.selectedChannel.id}
       />
     );
   }
@@ -40,7 +39,6 @@ class UserApp extends Component {
     if (rightNavState !== "me") {
       rightNavState = "chat";
     }
-    // const LoadedPage = loadable(() => import("./" + rightNavState));
     return (
       <LoadedPage
         user={this.props.user}
@@ -48,7 +46,6 @@ class UserApp extends Component {
         {...this.props}
         rightNavState={rightNavState}
         selectedChannel={JSON.parse(JSON.stringify(this.state.selectedChannel))}
-        selectedChannelId={this.state.selectedChannel.id}
       />
     );
   };

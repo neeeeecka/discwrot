@@ -6,7 +6,7 @@ import { faPhone, faFileDownload } from "@fortawesome/free-solid-svg-icons";
 const FlatContent = props => (
   <div
     className={
-      "text-base text-darkGray-100 hover:bg-darkGray-750 flex" +
+      "text-base text-darkGray-100 hover:bg-darkGray-750 flex leading-relaxed" +
       (props.className ? props.className : "") +
       (props.pad ? " my-3 py-1" : "")
     }
@@ -38,7 +38,7 @@ class Message extends Component {
     if (message.content) {
       if (withAuthor) {
         dom = (
-          <div className="py-2 pl-4 text-base text-darkGray-100 hover:bg-darkGray-750 flex">
+          <div className="py-0.5 pl-4 text-base text-darkGray-100 hover:bg-darkGray-750 flex">
             <div className="w-40px h-40px rounded-full bg-darkGray-400 m-auto ml-0 mr-4"></div>
             <div>
               <span className="hover:underline cursor-pointer">
