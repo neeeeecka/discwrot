@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next",
     "server": "nodemon server/main.mjs --watch server/",
-    "build": "next build"
+    "build": "next build",
+    "prod": "next export"
   },
   "repository": {
     "type": "git",
