@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { instanceOf } from "prop-types";
 import SideBar from "./sideBar";
 import loadable from "@loadable/component";
 import SocketIO from "socket.io-client";
@@ -27,6 +28,19 @@ class UserApp extends Component {
     selectedChannel: { name: "me", targetId: "", id: "" },
     io: null
   };
+
+  componentDidMount = () => {
+    const io = SocketIO("ws://localhost:2998");
+    this.state.io = io;
+    // console.log(get("sessionId"));
+    io.emit("authorize", this.props.sessionId, res => {
+      if (res) {
+        console.log("connected and authorized", res);
+      } else {
+        console.log("connection error", res);
+      }
+    });
+  };
   selectChannel = (name, targetId, id) => {
     if (this.state.selectedChannel.id !== id) {
       this.setState({
@@ -53,10 +67,6 @@ class UserApp extends Component {
     console.log("upd");
     return true;
   }
-  componentDidMount = () => {
-    const io = SocketIO("ws://localhost:2998");
-    this.state.io = io;
-  };
 
   render() {
     return (

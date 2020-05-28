@@ -24,8 +24,8 @@ class Message {
   };
   constructor(object) {
     this.data.channel_id = object.targetChannel.id;
-    this.data.author.username = "TestNigger";
-    this.data.author.id = "94184823";
+    this.data.author.username = object.author.name;
+    this.data.author.id = object.author.id;
     const date = new Date();
     this.data.timestamp = date.toISOString();
     if (object.content) {

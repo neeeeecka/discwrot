@@ -117,12 +117,19 @@ app.listen(port, () => console.log(`Server listening on port ${port}!`));
 const io = SocketIO();
 
 io.on("connection", client => {
-  client.on("message", async (message, cb) => {
-    //if DB.find(targetChannel).users.includes(client)
-    const result = await dbActions.messageChannel(message);
+  client.on("authorize", async (sessionId, cb) => {
+    const user = await dbActions.getCurrentUser(sessionId);
+    if (user) {
+      client.on("message", async (message, cb) => {
+        message.author = user;
+        const result = await dbActions.messageChannel(message);
 
-    cb(result);
+        cb(result);
+      });
+    }
+    cb(user);
   });
+
   client.on("disconnect", () => {
     /* … */
   });

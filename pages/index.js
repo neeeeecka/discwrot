@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Settings from "./components/settings/settings";
 import UserApp from "./components/userApp";
+import * as Cookies from "js-cookie";
 
 class Index extends Component {
   state = {
@@ -22,7 +23,7 @@ class Index extends Component {
       credentials: "include"
     });
     let data = await response.json();
-    this.setState({ user: data });
+    this.setState({ user: data, sessionId: Cookies.get("sessionId") });
   };
   openSettings = () => {
     this.setState({ mainPageVisible: false });
