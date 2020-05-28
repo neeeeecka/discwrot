@@ -2,15 +2,14 @@ import React, { Component } from "react";
 import Settings from "./components/settings/settings";
 import UserApp from "./components/userApp";
 import * as Cookies from "js-cookie";
+import cookies from "next-cookies";
 
 class Index extends Component {
-  static getInitialProps({ req }) {
-    if (req) {
-      console.log("on server, need to copy cookies from req");
-    } else {
-      console.log("on client, cookies are automatic");
-    }
-    return {};
+  static getInitialProps(ctx) {
+    // console.log(cookies(ctx).sessionId);
+    return {
+      sessionId: cookies(ctx).sessionId || ""
+    };
   }
   state = {
     user: {
@@ -42,7 +41,11 @@ class Index extends Component {
   render() {
     return (
       <div className="relative overflow-hidden">
-        <UserApp openSettings={this.openSettings} {...this.state} />
+        <UserApp
+          openSettings={this.openSettings}
+          {...this.state}
+          {...this.props}
+        />
         <Settings
           mainPageVisible={this.state.mainPageVisible}
           closeSettings={this.closeSettings}
