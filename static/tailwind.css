@@ -15,7 +15,7 @@ body {
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 20px; /* roundness of the scroll thumb */
-  @apply bg-accent-900;
+  @apply bg-darkGray-600;
   border: solid 3px transparent;
 }
 .scale-anim-95 {

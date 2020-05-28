@@ -3,6 +3,25 @@ import SideBar from "./sideBar";
 import loadable from "@loadable/component";
 import SocketIO from "socket.io-client";
 
+class LoadedPage extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      JSON.stringify(nextProps.selectedChannel) !==
+      JSON.stringify(this.props.selectedChannel)
+    );
+  }
+  render() {
+    const Loaded = loadable(() => import("./" + this.props.rightNavState));
+    return (
+      <Loaded
+        {...this.props}
+        selectedChannel={JSON.parse(JSON.stringify(this.props.selectedChannel))}
+        selectedChannelId={this.props.selectedChannel.id}
+      />
+    );
+  }
+}
+
 class UserApp extends Component {
   state = {
     rightNavState: "me",
@@ -21,18 +40,22 @@ class UserApp extends Component {
     if (rightNavState !== "me") {
       rightNavState = "chat";
     }
-    const LoadedPage = loadable(() => import("./" + rightNavState));
+    // const LoadedPage = loadable(() => import("./" + rightNavState));
     return (
       <LoadedPage
         user={this.props.user}
         {...this.state}
         {...this.props}
+        rightNavState={rightNavState}
         selectedChannel={JSON.parse(JSON.stringify(this.state.selectedChannel))}
         selectedChannelId={this.state.selectedChannel.id}
       />
     );
   };
-
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("upd");
+    return true;
+  }
   componentDidMount = () => {
     const io = SocketIO("ws://localhost:2998");
     this.state.io = io;
