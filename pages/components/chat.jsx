@@ -38,6 +38,8 @@ class Chat extends Component {
             withAuthor = true;
           }
         }
+      } else {
+        withAuthor = true;
       }
 
       dom.unshift(

@@ -44,7 +44,7 @@ class Message extends Component {
     if (message.content) {
       if (withAuthor) {
         dom = (
-          <div className="py-0.5 pl-4 text-base text-darkGray-100 hover:bg-darkGray-750 flex">
+          <div className="py-0.5 mt-4 pl-4 text-base text-darkGray-100 hover:bg-darkGray-750 flex">
             <div className="w-40px h-40px rounded-full bg-darkGray-400 m-auto ml-0 mr-4"></div>
             <div>
               <span className="hover:underline cursor-pointer">

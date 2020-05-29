@@ -24,7 +24,7 @@ class MessageObject {
     flags: 0
   };
   constructor(object) {
-    console.log(object);
+    // console.log(object);
     this.data.channel_id = object.targetChannel.id;
     this.data.author.username = object.author.name;
     this.data.author.id = object.author.userId;
