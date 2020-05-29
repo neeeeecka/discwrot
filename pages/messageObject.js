@@ -2,9 +2,8 @@ class MessageObject {
   data = {
     id: "",
     temporary: false,
-    type: 0,
     content: "",
-    channel_id: "",
+    channelId: "",
     author: {
       id: "",
       username: "",
@@ -18,14 +17,12 @@ class MessageObject {
     mention_roles: [],
     pinned: false,
     mention_everyone: false,
-    tts: false,
     timestamp: "",
-    edited_timestamp: null,
-    flags: 0
+    edited_timestamp: null
   };
   constructor(object) {
     // console.log(object);
-    this.data.channel_id = object.targetChannel.id;
+    this.data.channelId = object.targetChannel.id;
     this.data.author.username = object.author.name;
     this.data.author.id = object.author.userId;
     this.data.id = object.id;
