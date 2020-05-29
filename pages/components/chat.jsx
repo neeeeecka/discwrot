@@ -89,8 +89,9 @@ class Chat extends Component {
     return true;
   }
   componentDidMount = async () => {
+    this.fetched = false;
     setTimeout(async () => {
-      if (!this.state.messages.length) {
+      if (!this.fetched) {
         this.setState({ loading: true });
       }
     }, 150);
@@ -103,6 +104,7 @@ class Chat extends Component {
       }
     );
     let data = await response.json();
+    this.fetched = true;
 
     this.setState({ messages: data, loading: false });
 
