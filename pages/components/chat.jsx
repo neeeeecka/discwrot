@@ -48,6 +48,7 @@ class Chat extends Component {
           message={message}
           withAuthor={withAuthor}
           timestamp={timestamp1}
+          className={i === 0 ? " mb-5" : ""}
         />
       );
     });
@@ -106,9 +107,9 @@ class Chat extends Component {
         credentials: "include"
       }
     );
+
     let data = await response.json();
     this.fetched = true;
-
     this.setState({ messages: data, loading: false });
 
     this.props.io.off("recieve");
@@ -147,7 +148,7 @@ class Chat extends Component {
         >
           <div
             className={
-              "flex-1 overflow-y-auto pb-4" +
+              "flex-1 overflow-y-auto pb-4-not-working-in-firefox-so-applied-on--lastchild-instead" +
               (this.state.loading ? " flex" : "")
             }
             ref={el => {

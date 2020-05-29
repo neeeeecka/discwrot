@@ -10,7 +10,7 @@ class FlatContent extends Component {
     return (
       <div
         className={
-          "text-base text-darkGray-100 hover:bg-darkGray-750 flex leading-relaxed" +
+          "text-base text-darkGray-100 hover:bg-darkGray-750 flex leading-relaxed " +
           (props.className ? props.className : "") +
           (props.pad ? " my-3 py-1" : "")
         }
@@ -70,7 +70,10 @@ class Message extends Component {
         dom = (
           <FlatContent
             temporary={message.temporary}
-            className=" text-darkGray-700 hover:text-darkGray-400"
+            className={
+              " text-darkGray-700 hover:text-darkGray-400" +
+              this.props.className
+            }
             icon={
               <span className="w-40px text-right text-xs leading-none m-auto">
                 {HourMin}
@@ -91,7 +94,9 @@ class Message extends Component {
               <span className="w-40px flex">
                 <FontAwesomeIcon
                   icon={faPhone}
-                  className="text-green-500 m-auto sml-4"
+                  className={
+                    "text-green-500 m-auto sml-4" + this.props.className
+                  }
                   style={{ transform: "rotate(90deg)" }}
                 />
               </span>
@@ -105,6 +110,7 @@ class Message extends Component {
       if (message.attachments.length) {
         dom = (
           <FlatContent
+            className={this.props.className}
             temporary={message.temporary}
             pad={true}
             icon={
