@@ -24,8 +24,8 @@ class FlatContent extends Component {
           ) : null}
           <span
             className={
-              "" +
-              (props.temporary ? " text-darkGray-500" : "text-darkGray-150")
+              "break-all" +
+              (props.temporary ? " text-darkGray-500" : " text-darkGray-150")
             }
           >
             {props.children}
@@ -54,7 +54,7 @@ class Message extends Component {
       if (withAuthor) {
         dom = (
           <div className="py-0.5 mt-4 pl-4 text-base text-darkGray-100 hover:bg-darkGray-750 flex">
-            <div className="w-40px h-40px rounded-full bg-darkGray-400 m-auto ml-0 mr-4"></div>
+            <div className="flex-shrink-0 w-40px h-40px rounded-full bg-darkGray-400 m-auto ml-0 mr-4"></div>
             <div>
               <span className="hover:underline cursor-pointer">
                 {message.author.username}

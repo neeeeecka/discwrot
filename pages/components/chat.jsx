@@ -73,19 +73,20 @@ class Chat extends Component {
     const tempMsg = new MessageObject(data);
     tempMsg.temporary = true;
     newMessages.unshift(tempMsg);
-    this.setState({ message: "", messages: newMessages });
 
-    // setTimeout(() => {
+    const msgCopy = this.state.message;
+    const channelCopy = JSON.parse(JSON.stringify(this.props.selectedChannel));
     this.props.io.emit(
       "message",
       {
-        targetChannel: this.props.selectedChannel,
-        content: this.state.message,
+        targetChannel: channelCopy,
+        content: msgCopy,
         id: data.id
       },
       res => {}
     );
-    // }, 1000);
+
+    this.setState({ message: "", messages: newMessages });
   };
   shouldComponentUpdate(nextProps, nextState) {
     return true;
