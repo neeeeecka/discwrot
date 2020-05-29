@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import * as http from "http";
 import SocketIO from "socket.io";
-import DBActions from "./dbActions.mjs";
+import DBActions from "./dbActions.js";
 
 const MongoClient = mongodb.MongoClient;
 

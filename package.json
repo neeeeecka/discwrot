@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
-    "server": "nodemon server/main.mjs --watch server/",
+    "server": "nodemon server/main.js --watch server/ ",
     "build": "next build",
     "prod": "next export"
   },

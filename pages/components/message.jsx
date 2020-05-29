@@ -18,7 +18,13 @@ const FlatContent = props => (
           {props.author.username}
         </span>
       ) : null}
-      <span className="text-darkGray-150">{props.children}</span>
+      <span
+        className={
+          "" + (props.temporary ? " text-darkGray-500" : "text-darkGray-150")
+        }
+      >
+        {props.children}
+      </span>
     </div>
   </div>
 );
@@ -45,13 +51,16 @@ class Message extends Component {
                 {message.author.username}
               </span>
               <span className="text-darkGray-400 text-xs ml-2"> at {DMY}</span>
-              <FlatContent>{message.content}</FlatContent>
+              <FlatContent temporary={message.temporary}>
+                {message.content}
+              </FlatContent>
             </div>
           </div>
         );
       } else {
         dom = (
           <FlatContent
+            temporary={message.temporary}
             className=" text-darkGray-700 hover:text-darkGray-400"
             icon={
               <span className="w-40px text-right text-xs leading-none m-auto">
@@ -67,6 +76,7 @@ class Message extends Component {
       if (message.call) {
         dom = (
           <FlatContent
+            temporary={message.temporary}
             pad={true}
             icon={
               <span className="w-40px flex">
@@ -86,6 +96,7 @@ class Message extends Component {
       if (message.attachments.length) {
         dom = (
           <FlatContent
+            temporary={message.temporary}
             pad={true}
             icon={
               <span className="w-40px flex">

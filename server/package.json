@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "discwrot"
+  },
+  "author": "nika gabisonia",
+  "license": "ISC"
+}

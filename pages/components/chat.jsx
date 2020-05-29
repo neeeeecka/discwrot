@@ -3,6 +3,9 @@ import loadable from "@loadable/component";
 import Message from "./message";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import MessageObject from "../messageObject";
+// const MessageObject = require("./messageObject.js");
+
 class Chat extends Component {
   state = {
     message: "",
@@ -54,15 +57,31 @@ class Chat extends Component {
   };
 
   sendMessage = () => {
+    const newMessages = [...this.state.messages];
+    const data = {
+      targetChannel: this.props.selectedChannel,
+      content: this.state.message,
+      id: makeid(12)
+    };
+    console.log(this.props.user.userId);
+    data.author = {
+      name: this.props.user.name,
+      userId: this.props.user.userId
+    };
+    const tempMsg = new MessageObject(data);
+    tempMsg.temporary = true;
+    newMessages.unshift(tempMsg);
+    this.setState({ message: "", messages: newMessages });
+
     this.props.io.emit(
       "message",
       {
         targetChannel: this.props.selectedChannel,
-        content: this.state.message
+        content: this.state.message,
+        id: data.id
       },
-      data => {}
+      res => {}
     );
-    this.setState({ message: "" });
   };
   shouldComponentUpdate(nextProps, nextState) {
     return true;
@@ -85,11 +104,22 @@ class Chat extends Component {
 
     this.setState({ messages: data, loading: false });
 
-    this.props.io.on("recieve", async data => {
+    this.props.io.off("recieve");
+
+    this.props.io.on("recieve", async recievedMessage => {
       const newMessages = [...this.state.messages];
-      newMessages.unshift(data);
+      let replaced = false;
+      newMessages.forEach((message, i) => {
+        if (message.id === recievedMessage.id) {
+          newMessages[i] = recievedMessage;
+          console.log("found and updating", message, recievedMessage);
+          replaced = true;
+        }
+      });
+      if (!replaced) {
+        newMessages.unshift(recievedMessage);
+      }
       this.setState({ messages: newMessages });
-      console.log(data);
     });
   };
 
@@ -125,7 +155,7 @@ class Chat extends Component {
                 (this.state.loading ? "" : " hidden")
               }
             >
-              <div class="lds-ellipsis">
+              <div className="lds-ellipsis">
                 <div></div>
                 <div></div>
                 <div></div>
@@ -162,5 +192,14 @@ class Chat extends Component {
     );
   }
 }
-
+function makeid(length) {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
 export default Chat;
