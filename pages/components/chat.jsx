@@ -75,6 +75,7 @@ class Chat extends Component {
     newMessages.unshift(tempMsg);
     this.setState({ message: "", messages: newMessages });
 
+    // setTimeout(() => {
     this.props.io.emit(
       "message",
       {
@@ -84,6 +85,7 @@ class Chat extends Component {
       },
       res => {}
     );
+    // }, 1000);
   };
   shouldComponentUpdate(nextProps, nextState) {
     return true;

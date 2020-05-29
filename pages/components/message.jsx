@@ -3,35 +3,44 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faFileDownload } from "@fortawesome/free-solid-svg-icons";
 
-const FlatContent = props => (
-  <div
-    className={
-      "text-base text-darkGray-100 hover:bg-darkGray-750 flex leading-relaxed" +
-      (props.className ? props.className : "") +
-      (props.pad ? " my-3 py-1" : "")
-    }
-  >
-    {props.icon ? <div className="flex mx-4">{props.icon}</div> : null}
-    <div>
-      {props.author ? (
-        <span className="hover:underline cursor-pointer">
-          {props.author.username}
-        </span>
-      ) : null}
-      <span
+class FlatContent extends Component {
+  componentWillReceiveProps(nextProps) {}
+  render() {
+    const props = this.props;
+    return (
+      <div
         className={
-          "" + (props.temporary ? " text-darkGray-500" : "text-darkGray-150")
+          "text-base text-darkGray-100 hover:bg-darkGray-750 flex leading-relaxed" +
+          (props.className ? props.className : "") +
+          (props.pad ? " my-3 py-1" : "")
         }
       >
-        {props.children}
-      </span>
-    </div>
-  </div>
-);
+        {props.icon ? <div className="flex mx-4">{props.icon}</div> : null}
+        <div>
+          {props.author ? (
+            <span className="hover:underline cursor-pointer">
+              {props.author.username}
+            </span>
+          ) : null}
+          <span
+            className={
+              "" +
+              (props.temporary ? " text-darkGray-500" : "text-darkGray-150")
+            }
+          >
+            {props.children}
+          </span>
+        </div>
+      </div>
+    );
+  }
+}
 
 class Message extends Component {
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.message.content !== this.props.message.content;
+    return (
+      JSON.stringify(nextProps.message) != JSON.stringify(this.props.message)
+    );
   }
   render() {
     const message = this.props.message;
@@ -40,7 +49,7 @@ class Message extends Component {
     const HourMin = date.getHours() + ":" + date.getMinutes();
     let DMY = date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear();
 
-    let dom;
+    let dom = null;
     if (message.content) {
       if (withAuthor) {
         dom = (
