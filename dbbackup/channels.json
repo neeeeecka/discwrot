@@ -1,0 +1,390 @@
+[{
+  "_id": {
+    "$oid": "5ecd5036214ef04bad4789ed"
+  },
+  "channelId": "52016951267983362",
+  "users": [
+    "97432gds87341t32g",
+    "432ds87341t32a"
+  ],
+  "messages": [
+    {
+      "id": "8tlXgtt5KqCV",
+      "temporary": false,
+      "content": "okay",
+      "channelId": "52016951267983362",
+      "author": {
+        "id": "97432gds87341t32g",
+        "username": "BlackJader",
+        "avatar": "",
+        "discriminator": "",
+        "public_flags": 0
+      },
+      "attachments": [],
+      "embeds": [],
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "mention_everyone": false,
+      "timestamp": "2020-05-29T09:10:53.493Z",
+      "edited_timestamp": null
+    },
+    {
+      "id": "BclRN3zjbmAA",
+      "temporary": false,
+      "content": "tsdtsdf",
+      "channelId": "52016951267983362",
+      "author": {
+        "id": "432ds87341t32a",
+        "username": "WhiteStardust",
+        "avatar": "",
+        "discriminator": "",
+        "public_flags": 0
+      },
+      "attachments": [],
+      "embeds": [],
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "mention_everyone": false,
+      "timestamp": "2020-05-29T09:10:49.992Z",
+      "edited_timestamp": null
+    },
+    {
+      "id": "MucHTmvhsp8U",
+      "temporary": false,
+      "content": "testing grimes",
+      "channelId": "52016951267983362",
+      "author": {
+        "id": "432ds87341t32a",
+        "username": "WhiteStardust",
+        "avatar": "",
+        "discriminator": "",
+        "public_flags": 0
+      },
+      "attachments": [],
+      "embeds": [],
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "mention_everyone": false,
+      "timestamp": "2020-05-29T09:10:47.903Z",
+      "edited_timestamp": null
+    },
+    {
+      "id": "ctV7KWIeDl3y",
+      "temporary": false,
+      "content": "",
+      "channelId": "52016951267983362",
+      "author": {
+        "id": "432ds87341t32a",
+        "username": "WhiteStardust",
+        "avatar": "",
+        "discriminator": "",
+        "public_flags": 0
+      },
+      "attachments": [
+        "yay i am file"
+      ],
+      "embeds": [],
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "mention_everyone": false,
+      "timestamp": "2020-05-29T08:59:32.525Z",
+      "edited_timestamp": null
+    },
+    {
+      "id": "ilFJfQsAnSkg",
+      "temporary": false,
+      "content": "Okay good",
+      "channelId": "52016951267983362",
+      "author": {
+        "id": "432ds87341t32a",
+        "username": "WhiteStardust",
+        "avatar": "",
+        "discriminator": "",
+        "public_flags": 0
+      },
+      "attachments": [],
+      "embeds": [],
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "mention_everyone": false,
+      "timestamp": "2020-05-29T08:59:25.813Z",
+      "edited_timestamp": null
+    },
+    {
+      "id": "kp3u7cV7Tdai",
+      "temporary": false,
+      "type": 0,
+      "content": "",
+      "channel_id": "52016951267983362",
+      "author": {
+        "id": "97432gds87341t32g",
+        "username": "BlackJader",
+        "avatar": "",
+        "discriminator": "",
+        "public_flags": 0
+      },
+      "attachments": [],
+      "embeds": [],
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "mention_everyone": false,
+      "tts": false,
+      "timestamp": "2020-05-29T08:58:01.987Z",
+      "edited_timestamp": null,
+      "flags": 0,
+      "call": "yes"
+    },
+    {
+      "id": "TQIjabQ8db1G",
+      "temporary": false,
+      "type": 0,
+      "content": "I will call you",
+      "channel_id": "52016951267983362",
+      "author": {
+        "id": "432ds87341t32a",
+        "username": "WhiteStardust",
+        "avatar": "",
+        "discriminator": "",
+        "public_flags": 0
+      },
+      "attachments": [],
+      "embeds": [],
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "mention_everyone": false,
+      "tts": false,
+      "timestamp": "2020-05-29T08:57:59.234Z",
+      "edited_timestamp": null,
+      "flags": 0
+    },
+    {
+      "id": "xaOIGfq40y2c",
+      "temporary": false,
+      "type": 0,
+      "content": "no u",
+      "channel_id": "52016951267983362",
+      "author": {
+        "id": "432ds87341t32a",
+        "username": "WhiteStardust",
+        "avatar": "",
+        "discriminator": "",
+        "public_flags": 0
+      },
+      "attachments": [],
+      "embeds": [],
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "mention_everyone": false,
+      "tts": false,
+      "timestamp": "2020-05-29T08:57:25.709Z",
+      "edited_timestamp": null,
+      "flags": 0
+    },
+    {
+      "id": "5vkOHjWx082j",
+      "temporary": false,
+      "type": 0,
+      "content": "no u",
+      "channel_id": "52016951267983362",
+      "author": {
+        "id": "97432gds87341t32g",
+        "username": "BlackJader",
+        "avatar": "",
+        "discriminator": "",
+        "public_flags": 0
+      },
+      "attachments": [],
+      "embeds": [],
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "mention_everyone": false,
+      "tts": false,
+      "timestamp": "2020-05-29T08:57:22.686Z",
+      "edited_timestamp": null,
+      "flags": 0
+    },
+    {
+      "id": "KZsU3xNN7M0g",
+      "temporary": false,
+      "type": 0,
+      "content": "and ur idiot noob hahahahahah",
+      "channel_id": "52016951267983362",
+      "author": {
+        "id": "432ds87341t32a",
+        "username": "WhiteStardust",
+        "avatar": "",
+        "discriminator": "",
+        "public_flags": 0
+      },
+      "attachments": [],
+      "embeds": [],
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "mention_everyone": false,
+      "tts": false,
+      "timestamp": "2020-05-29T08:57:20.325Z",
+      "edited_timestamp": null,
+      "flags": 0
+    },
+    {
+      "id": "iRdOFNt25S9Z",
+      "temporary": false,
+      "type": 0,
+      "content": "Me is profesional ",
+      "channel_id": "52016951267983362",
+      "author": {
+        "id": "432ds87341t32a",
+        "username": "WhiteStardust",
+        "avatar": "",
+        "discriminator": "",
+        "public_flags": 0
+      },
+      "attachments": [],
+      "embeds": [],
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "mention_everyone": false,
+      "tts": false,
+      "timestamp": "2020-05-29T08:57:14.725Z",
+      "edited_timestamp": null,
+      "flags": 0
+    },
+    {
+      "id": "AX6nYsX4qHg7",
+      "temporary": false,
+      "type": 0,
+      "content": "Me is Nika",
+      "channel_id": "52016951267983362",
+      "author": {
+        "id": "432ds87341t32a",
+        "username": "WhiteStardust",
+        "avatar": "",
+        "discriminator": "",
+        "public_flags": 0
+      },
+      "attachments": [],
+      "embeds": [],
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "mention_everyone": false,
+      "tts": false,
+      "timestamp": "2020-05-29T08:57:09.083Z",
+      "edited_timestamp": null,
+      "flags": 0
+    },
+    {
+      "id": "CufaI2eNGxFS",
+      "temporary": false,
+      "type": 0,
+      "content": "Yes, and you?",
+      "channel_id": "52016951267983362",
+      "author": {
+        "id": "97432gds87341t32g",
+        "username": "BlackJader",
+        "avatar": "",
+        "discriminator": "",
+        "public_flags": 0
+      },
+      "attachments": [],
+      "embeds": [],
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "mention_everyone": false,
+      "tts": false,
+      "timestamp": "2020-05-29T08:57:05.936Z",
+      "edited_timestamp": null,
+      "flags": 0
+    },
+    {
+      "id": "ger9700M5TSg",
+      "temporary": false,
+      "type": 0,
+      "content": "Are you irakli?",
+      "channel_id": "52016951267983362",
+      "author": {
+        "id": "432ds87341t32a",
+        "username": "WhiteStardust",
+        "avatar": "",
+        "discriminator": "",
+        "public_flags": 0
+      },
+      "attachments": [],
+      "embeds": [],
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "mention_everyone": false,
+      "tts": false,
+      "timestamp": "2020-05-29T08:57:01.742Z",
+      "edited_timestamp": null,
+      "flags": 0
+    },
+    {
+      "id": "QraKAysfKDP0",
+      "temporary": false,
+      "type": 0,
+      "content": "Hi",
+      "channel_id": "52016951267983362",
+      "author": {
+        "id": "97432gds87341t32g",
+        "username": "BlackJader",
+        "avatar": "",
+        "discriminator": "",
+        "public_flags": 0
+      },
+      "attachments": [],
+      "embeds": [],
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "mention_everyone": false,
+      "tts": false,
+      "timestamp": "2020-05-29T08:56:55.917Z",
+      "edited_timestamp": null,
+      "flags": 0
+    },
+    {
+      "id": "rQPWzwc2CWeA",
+      "temporary": false,
+      "type": 0,
+      "content": "Hello!",
+      "channel_id": "52016951267983362",
+      "author": {
+        "id": "432ds87341t32a",
+        "username": "WhiteStardust",
+        "avatar": "",
+        "discriminator": "",
+        "public_flags": 0
+      },
+      "attachments": [],
+      "embeds": [],
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "mention_everyone": false,
+      "tts": false,
+      "timestamp": "2020-05-29T08:56:52.917Z",
+      "edited_timestamp": null,
+      "flags": 0
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5ecff76ccbaf464f746151f8"
+  },
+  "channelId": "6201695126422",
+  "messages": []
+}]

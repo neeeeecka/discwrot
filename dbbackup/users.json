@@ -1,0 +1,32 @@
+[{
+  "_id": {
+    "$oid": "5ec7e7a70846e111376f3016"
+  },
+  "name": "BlackJader",
+  "separator": "1234",
+  "email": "thebroirakli@gmail.com",
+  "status": "Я не бог но и пох",
+  "state": "online",
+  "sessionId": "fdsafsdafds76723",
+  "userId": "97432gds87341t32g",
+  "channels": {
+    "Matejicek#4544": "32137562432475",
+    "White_Stardust#9367": "52016951267983362",
+    "Morgenshtern#7777": "13929184771234"
+  }
+},{
+  "_id": {
+    "$oid": "5ecff7e9cbaf464f746151f9"
+  },
+  "name": "WhiteStardust",
+  "separator": "5554",
+  "email": "blackshtormx@gmail.com",
+  "status": "279e bonus codes",
+  "state": "online",
+  "sessionId": "dsfuhasfdjad32ewdsh",
+  "userId": "432ds87341t32a",
+  "channels": {
+    "Matejicek#4544": "32137562432475",
+    "Morgenshtern#7777": "13929184771234"
+  }
+}]
