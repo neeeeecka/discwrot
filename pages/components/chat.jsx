@@ -98,7 +98,7 @@ class Chat extends Component {
       if (!this.fetched) {
         this.setState({ loading: true });
       }
-    }, 150);
+    }, 100);
     let response = await fetch(
       `${this.props.cURL}/channels/${this.props.selectedChannel.id}/messages`,
       {
