@@ -6,7 +6,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 class Chat extends Component {
   state = {
     message: "",
-    messages: []
+    messages: [],
+    loading: false
   };
 
   getChat = () => {
@@ -67,6 +68,11 @@ class Chat extends Component {
     return true;
   }
   componentDidMount = async () => {
+    setTimeout(async () => {
+      if (!this.state.messages.length) {
+        this.setState({ loading: true });
+      }
+    }, 150);
     let response = await fetch(
       `${this.props.cURL}/channels/${this.props.selectedChannel.id}/messages`,
       {
@@ -77,7 +83,7 @@ class Chat extends Component {
     );
     let data = await response.json();
 
-    this.setState({ messages: data });
+    this.setState({ messages: data, loading: false });
 
     this.props.io.on("recieve", async data => {
       const newMessages = [...this.state.messages];
@@ -103,13 +109,29 @@ class Chat extends Component {
           style={{ maxHeight: "calc(100% - 48px)" }}
         >
           <div
-            className="flex-1 overflow-y-auto pb-4"
+            className={
+              "flex-1 overflow-y-auto pb-4" +
+              (this.state.loading ? " flex" : "")
+            }
             ref={el => {
               if (el) {
                 el.scrollTo(0, el.scrollHeight);
               }
             }}
           >
+            <div
+              className={
+                "m-auto text-darkGray-100" +
+                (this.state.loading ? "" : " hidden")
+              }
+            >
+              <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
             {this.getChat()}
           </div>
           <div className="mb-6 mx-4 m-auto mb-0 rounded-md overflow-hidden flex">
