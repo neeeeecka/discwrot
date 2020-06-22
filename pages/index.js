@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Settings from "./components/settings/settings";
 import UserApp from "./components/userApp";
-import * as Cookies from "js-cookie";
 import cookies from "next-cookies";
 
 const cURL = "http://localhost:2999";
@@ -19,10 +18,11 @@ class Index extends Component {
     mainPageVisible: true
   };
   static async getInitialProps(ctx) {
+    const userSessionId = cookies(ctx).sessionId;
     let response = await fetch(`${cURL}/@me`, {
       credentials: "include",
       headers: {
-        cookie: "sessionId=" + cookies(ctx).sessionId
+        cookie: "sessionId=" + userSessionId
       },
       body: null,
       method: "GET",
@@ -31,7 +31,7 @@ class Index extends Component {
     let data = await response.json();
 
     return {
-      sessionId: cookies(ctx).sessionId || "",
+      sessionId: userSessionId || "",
       user: data,
       cURL: cURL
     };
