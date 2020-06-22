@@ -22,17 +22,9 @@ class Index extends Component {
     let response = await fetch(`${cURL}/@me`, {
       credentials: "include",
       headers: {
-        accept: "*/*",
-        "accept-language": "en-US,en;q=0.9",
-        "cache-control": "no-cache",
-        pragma: "no-cache",
-        "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
         cookie: "sessionId=" + cookies(ctx).sessionId
       },
-      referrer: "http://localhost:3000/",
-      referrerPolicy: "no-referrer-when-downgrade",
       body: null,
       method: "GET",
       mode: "cors"
