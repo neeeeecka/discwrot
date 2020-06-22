@@ -4,13 +4,9 @@ import UserApp from "./components/userApp";
 import * as Cookies from "js-cookie";
 import cookies from "next-cookies";
 
+const cURL = "http://localhost:2999";
+
 class Index extends Component {
-  static getInitialProps(ctx) {
-    // console.log(cookies(ctx).sessionId);
-    return {
-      sessionId: cookies(ctx).sessionId || ""
-    };
-  }
   state = {
     user: {
       name: "",
@@ -20,17 +16,44 @@ class Index extends Component {
       status: ""
     },
     units: [],
-    mainPageVisible: true,
-    cURL: "http://localhost:2999"
+    mainPageVisible: true
   };
-  componentDidMount = async () => {
-    let response = await fetch(`${this.state.cURL}/@me`, {
+  static async getInitialProps(ctx) {
+    let response = await fetch(`${cURL}/@me`, {
+      credentials: "include",
+      headers: {
+        accept: "*/*",
+        "accept-language": "en-US,en;q=0.9",
+        "cache-control": "no-cache",
+        pragma: "no-cache",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        cookie: "sessionId=" + cookies(ctx).sessionId
+      },
+      referrer: "http://localhost:3000/",
+      referrerPolicy: "no-referrer-when-downgrade",
+      body: null,
       method: "GET",
-      mode: "cors",
-      credentials: "include"
+      mode: "cors"
     });
     let data = await response.json();
-    this.setState({ user: data, sessionId: Cookies.get("sessionId") });
+
+    return {
+      sessionId: cookies(ctx).sessionId || "",
+      user: data,
+      cURL: cURL
+    };
+  }
+
+  componentDidMount = async () => {
+    // let response = await fetch(`${cURL}/@me`, {
+    //   method: "GET",
+    //   mode: "cors",
+    //   credentials: "include"
+    // });
+    // let data = await response.json();
+    // this.setState({ user: data, sessionId: Cookies.get("sessionId") });
   };
   openSettings = () => {
     this.setState({ mainPageVisible: false });
@@ -49,7 +72,7 @@ class Index extends Component {
         <Settings
           mainPageVisible={this.state.mainPageVisible}
           closeSettings={this.closeSettings}
-          user={this.state.user}
+          {...this.props}
         />
       </div>
     );
