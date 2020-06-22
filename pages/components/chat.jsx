@@ -6,6 +6,11 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import MessageObject from "../messageObject";
 // const MessageObject = require("./messageObject.js");
 
+
+
+
+
+
 class Chat extends Component {
   state = {
     message: "",
