@@ -119,6 +119,14 @@ const io = SocketIO();
 //better save such stuff in DB but ok
 const connectedPeers = {};
 
+function broadCastToChannel(channel, except, cb) {
+  channel.users.forEach(userId => {
+    if (userId != except.userId) {
+      cb(connectedPeers[userId]);
+    }
+  });
+}
+
 io.on("connection", client => {
   client.on("authorize", async (sessionId, cb) => {
     console.log(client.id + " -connected");
@@ -136,16 +144,16 @@ io.on("connection", client => {
       client.on("typingMessage", async (typer, cb) => {
         const newTyper = { name: user.name, userId: user.userId };
         const channel = await dbActions.getChannel(typer.targetChannel.id);
-        channel.users.forEach(userId => {
-          io.to(connectedPeers[userId]).emit("recieveTyper", newTyper);
+        broadCastToChannel(channel, user, user => {
+          io.to(user).emit("recieveTyper", newTyper);
         });
         cb("removed ok");
       });
       client.on("removeTyper", async (typer, cb) => {
         const newTyper = { name: user.name, userId: user.userId };
         const channel = await dbActions.getChannel(typer.targetChannel.id);
-        channel.users.forEach(userId => {
-          io.to(connectedPeers[userId]).emit("removeTyper", newTyper);
+        broadCastToChannel(channel, user, user => {
+          io.to(user).emit("removeTyper", newTyper);
         });
         cb("removed ok");
       });
