@@ -130,10 +130,24 @@ io.on("connection", client => {
         const resultMessage = await dbActions.messageChannel(message);
         const channel = await dbActions.getChannel(message.targetChannel.id);
         channel.users.forEach(userId => {
-          // connectedPeers[userId].send(resultMessage);
           io.to(connectedPeers[userId]).emit("recieve", resultMessage);
         });
-        // cb(resultMessage);
+      });
+      client.on("typingMessage", async (typer, cb) => {
+        const newTyper = { name: user.name, userId: user.userId };
+        const channel = await dbActions.getChannel(typer.targetChannel.id);
+        channel.users.forEach(userId => {
+          io.to(connectedPeers[userId]).emit("recieveTyper", newTyper);
+        });
+        cb("removed ok");
+      });
+      client.on("removeTyper", async (typer, cb) => {
+        const newTyper = { name: user.name, userId: user.userId };
+        const channel = await dbActions.getChannel(typer.targetChannel.id);
+        channel.users.forEach(userId => {
+          io.to(connectedPeers[userId]).emit("removeTyper", newTyper);
+        });
+        cb("removed ok");
       });
     }
     cb(user);

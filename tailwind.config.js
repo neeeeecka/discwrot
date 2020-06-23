@@ -52,7 +52,7 @@ module.exports = {
         "20px": "20px",
         "30px": "30px",
         "40px": "40px",
-
+        "1line": "2em",
         "15px": "15px",
         "1/2": "0.13rem",
         "1px": "1px"

@@ -6,16 +6,12 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import MessageObject from "../messageObject";
 // const MessageObject = require("./messageObject.js");
 
-
-
-
-
-
 class Chat extends Component {
   state = {
     message: "",
     messages: [],
-    loading: false
+    loading: false,
+    typers: []
   };
 
   getChat = () => {
@@ -64,6 +60,29 @@ class Chat extends Component {
     this.setState({ message: e.target.value });
   };
 
+  getChannelCopy = () => {
+    return JSON.parse(JSON.stringify(this.props.selectedChannel));
+  };
+  getTypers = () => {
+    let dom = [];
+    const typers = this.state.typers;
+    if (typers.length > 1) {
+      dom = typers.map(typer => (
+        <span className="font-bold">{typer.name}</span>
+      ));
+    } else if (typers.length == 1) {
+      dom.push(<span className="font-bold">{typers[0].name}</span>);
+    }
+    if (typers.length > 0) {
+      dom.push(
+        <span className="ml-1">
+          <span>{typers.length > 1 ? "are" : "is"} typing...</span>
+        </span>
+      );
+    }
+
+    return dom;
+  };
   sendMessage = () => {
     const newMessages = [...this.state.messages];
     const data = {
@@ -81,11 +100,11 @@ class Chat extends Component {
     newMessages.unshift(tempMsg);
 
     const msgCopy = this.state.message;
-    const channelCopy = JSON.parse(JSON.stringify(this.props.selectedChannel));
+    const cc = getChanngelCopy();
     this.props.io.emit(
       "message",
       {
-        targetChannel: channelCopy,
+        targetChannel: cc,
         content: msgCopy,
         id: data.id
       },
@@ -117,9 +136,12 @@ class Chat extends Component {
     this.fetched = true;
     this.setState({ messages: data, loading: false });
 
-    this.props.io.off("recieve");
+    const io = this.props.io;
 
-    this.props.io.on("recieve", async recievedMessage => {
+    io.off("recieve");
+    io.off("recieveTyper");
+
+    io.on("recieve", async recievedMessage => {
       const newMessages = [...this.state.messages];
       let replaced = false;
       newMessages.forEach((message, i) => {
@@ -134,7 +156,27 @@ class Chat extends Component {
       }
       this.setState({ messages: newMessages });
     });
+    io.on("recieveTyper", async recievedTyper => {
+      const newTypers = this.state.typers;
+      newTypers.push(recievedTyper);
+      this.setState({ typers: newTypers });
+    });
+    io.on("removeTyper", async recievedTyper => {
+      const newTypers = this.state.typers;
+      let userIndex = -1;
+      for (var i = 0; i < newTypers.length; i++) {
+        if (newTypers[i].userId === recievedTyper.userId) {
+          userIndex = recievedTyper.userId;
+          break;
+        }
+      }
+      newTypers.splice(userIndex, 1);
+      this.setState({ typers: newTypers });
+    });
   };
+
+  typeEnd = -1;
+  typeStart = false;
 
   render() {
     return (
@@ -177,7 +219,7 @@ class Chat extends Component {
             </div>
             {this.getChat()}
           </div>
-          <div className="mb-6 mx-4 m-auto mb-0 rounded-md overflow-hidden flex">
+          <div className={"mx-4 m-auto rounded-md overflow-hidden flex"}>
             <span className="my-auto bg-darkGray-600 h-full flex">
               <button className="hover:bg-darkGray-150 bg-darkGray-300 my-auto ml-4 outline-none focus:outline-none rounded-full flex w-20px h-20px">
                 <FontAwesomeIcon
@@ -193,12 +235,42 @@ class Chat extends Component {
               value={this.state.message}
               onChange={this.writeMessage}
               onKeyDown={e => {
+                const cc = this.getChannelCopy();
+                clearTimeout(this.typeEnd);
+                if (!this.typeStart) {
+                  this.props.io.emit(
+                    "typingMessage",
+                    {
+                      targetChannel: cc
+                    },
+                    res => {}
+                  );
+                  this.typeStart = true;
+                }
                 //enter key press
                 if (e.keyCode === 13) {
                   this.sendMessage();
                 }
               }}
+              onKeyUp={e => {
+                const cc = this.getChannelCopy();
+                clearTimeout(this.typeEnd);
+                this.typeEnd = setTimeout(() => {
+                  this.props.io.emit(
+                    "removeTyper",
+                    {
+                      targetChannel: cc
+                    },
+                    res => {
+                      this.typeStart = false;
+                    }
+                  );
+                }, 960);
+              }}
             />
+          </div>
+          <div className="pt-1 mb-0 ml-2 h-1line text-sm px-2 text-darkGray-150">
+            {this.getTypers()}
           </div>
         </div>
       </React.Fragment>
