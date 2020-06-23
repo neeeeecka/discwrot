@@ -64,12 +64,27 @@ class Chat extends Component {
     return JSON.parse(JSON.stringify(this.props.selectedChannel));
   };
   getTypers = () => {
+    const maxTypers = 2;
     let dom = [];
     const typers = this.state.typers;
     if (typers.length > 1) {
-      dom = typers.map(typer => (
-        <span className="font-bold">{typer.name}</span>
-      ));
+      for (var i = 0; i < maxTypers; i++) {
+        dom.push(
+          <span className="font-bold">
+            {typers[i].name}
+            {i != maxTypers - 1 ? "," : ""}
+          </span>
+        );
+      }
+      if (typers.length > maxTypers) {
+        dom.push(
+          <span className="font-bold">
+            {" "}
+            and {typers.length - maxTypers}{" "}
+            {typers.length - maxTypers == 1 ? "other" : "others"}
+          </span>
+        );
+      }
     } else if (typers.length == 1) {
       dom.push(<span className="font-bold">{typers[0].name}</span>);
     }
