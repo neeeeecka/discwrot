@@ -147,7 +147,7 @@ io.on("connection", client => {
         broadCastToChannel(channel, user, user => {
           io.to(user).emit("recieveTyper", newTyper);
         });
-        cb("removed ok");
+        cb("recieved ok");
       });
       client.on("removeTyper", async (typer, cb) => {
         const newTyper = { name: user.name, userId: user.userId };
