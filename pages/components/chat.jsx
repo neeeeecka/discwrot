@@ -11,7 +11,7 @@ class Chat extends Component {
       message: "",
       messages: [],
       loading: false,
-      typers: [],
+      typers: {},
    };
 
    getChat = () => {
@@ -19,12 +19,12 @@ class Chat extends Component {
       // console.log(this.state.messages);
       const messages = this.state.messages;
       messages.forEach((message, i) => {
-         const timestamp1 = Date.parse(message.timestamp);
+         const timestamp1 = message.timestamp;
 
          let withAuthor = false;
          const prevMessage = messages[i + 1];
          if (prevMessage) {
-            const timestamp0 = Date.parse(prevMessage.timestamp);
+            const timestamp0 = prevMessage.timestamp;
 
             const delta = timestamp1 - timestamp0;
             if (delta / 1000 / 60 >= 15) {
@@ -68,11 +68,11 @@ class Chat extends Component {
    getTypers = () => {
       const maxTypers = 2;
       let dom = [];
-      const typers = this.state.typers;
+      const typers = Object.values(this.state.typers);
       if (typers.length > 1) {
          for (var i = 0; i < maxTypers; i++) {
             dom.push(
-               <span className="font-bold">
+               <span className="font-bold" key={typers[i].name}>
                   {typers[i].name}
                   {i != maxTypers - 1 ? "," : ""}
                </span>
@@ -80,7 +80,7 @@ class Chat extends Component {
          }
          if (typers.length > maxTypers) {
             dom.push(
-               <span className="font-bold">
+               <span className="font-bold" key="others">
                   {" "}
                   and {typers.length - maxTypers}{" "}
                   {typers.length - maxTypers == 1 ? "other" : "others"}
@@ -88,11 +88,15 @@ class Chat extends Component {
             );
          }
       } else if (typers.length == 1) {
-         dom.push(<span className="font-bold">{typers[0].name}</span>);
+         dom.push(
+            <span className="font-bold" key={typers[0].name}>
+               {typers[0].name}
+            </span>
+         );
       }
       if (typers.length > 0) {
          dom.push(
-            <span className="ml-1">
+            <span className="ml-1" key={i + "grammar"}>
                <span>{typers.length > 1 ? "are" : "is"} typing...</span>
             </span>
          );
@@ -136,6 +140,8 @@ class Chat extends Component {
    shouldComponentUpdate(nextProps, nextState) {
       return true;
    }
+   typerTimeout = null;
+
    componentDidMount = async () => {
       this.fetched = false;
       setTimeout(async () => {
@@ -177,21 +183,15 @@ class Chat extends Component {
          this.setState({ messages: newMessages });
       });
       io.on("recieveTyper", async (recievedTyper) => {
-         const newTypers = this.state.typers;
-         newTypers.push(recievedTyper);
+         const newTypers = { ...this.state.typers };
+         newTypers[recievedTyper.userId] = recievedTyper;
          this.setState({ typers: newTypers });
-      });
-      io.on("removeTyper", async (recievedTyper) => {
-         const newTypers = this.state.typers;
-         let userIndex = -1;
-         for (var i = 0; i < newTypers.length; i++) {
-            if (newTypers[i].userId === recievedTyper.userId) {
-               userIndex = recievedTyper.userId;
-               break;
-            }
-         }
-         newTypers.splice(userIndex, 1);
-         this.setState({ typers: newTypers });
+         clearTimeout(this.typerTimeout);
+         this.typerTimeout = setTimeout(() => {
+            let newTypers = { ...this.state.typers };
+            delete newTypers[recievedTyper.userId];
+            this.setState({ typers: newTypers });
+         }, 1700);
       });
    };
 
@@ -251,11 +251,28 @@ class Chat extends Component {
                      </button>
                   </span>
                   <MessageInput
-                     onChange={this.writeMessage}
                      writeMessage={this.writeMessage}
                      selectedChannel={this.props.selectedChannel}
-                     sendMessage={this.sendMessage}
                      message={this.state.message}
+                     onKeyDown={(e) => {
+                        //enter key press
+                        if (e.keyCode === 13) {
+                           this.sendMessage();
+                        }
+                     }}
+                     onKeyUp={(e) => {
+                        const cc = this.getChannelCopy();
+                        console.log("send");
+                        // clearTimeout(this.typeEnd);
+
+                        this.props.io.emit(
+                           "typingMessage",
+                           {
+                              targetChannel: cc,
+                           },
+                           (res) => {}
+                        );
+                     }}
                   />
                </div>
                <div className="pt-1 mb-0 ml-2 h-1line text-sm px-2 text-darkGray-150">
@@ -268,8 +285,9 @@ class Chat extends Component {
 }
 
 function MessageInput(props) {
-   console.log(message);
-   const { selectedChannel, message, writeMessage, sendMessage } = { ...props };
+   const { selectedChannel, message, writeMessage, onKeyDown, onKeyUp } = {
+      ...props,
+   };
    return (
       <input
          type="text"
@@ -277,24 +295,8 @@ function MessageInput(props) {
          placeholder={"Message @" + selectedChannel.name}
          value={message}
          onChange={writeMessage}
-         onKeyDown={(e) => {
-            // const cc = this.getChannelCopy();
-            // clearTimeout(this.typeEnd);
-            // if (!this.typeStart) {
-            //    this.props.io.emit(
-            //       "typingMessage",
-            //       {
-            //          targetChannel: cc,
-            //       },
-            //       (res) => {}
-            //    );
-            //    this.typeStart = true;
-            // }
-            //enter key press
-            if (e.keyCode === 13) {
-               sendMessage();
-            }
-         }}
+         onKeyDown={onKeyDown}
+         onKeyUp={onKeyUp}
          // onKeyUp={(e) => {
          //    const cc = this.getChannelCopy();
          //    clearTimeout(this.typeEnd);

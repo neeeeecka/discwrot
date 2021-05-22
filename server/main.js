@@ -154,6 +154,7 @@ io.on("connection", (client) => {
    client.on("authorize", async (sessionId, cb) => {
       console.log(client.id + " -connected");
       const user = await dbActions.getCurrentUser(sessionId);
+      // console.log(user);
       connectedPeers[user.userId] = client.id;
       if (user) {
          client.on("message", async (message, cb) => {
@@ -168,20 +169,23 @@ io.on("connection", (client) => {
          });
          client.on("typingMessage", async (typer, cb) => {
             const newTyper = { name: user.name, userId: user.userId };
+            // console.log("recieved");
             const channel = await dbActions.getChannel(typer.targetChannel.id);
+
             broadCastToChannel(channel, user, (user) => {
                io.to(user).emit("recieveTyper", newTyper);
             });
-            cb("recieved ok");
+
+            // cb("recieved ok");
          });
-         client.on("removeTyper", async (typer, cb) => {
-            const newTyper = { name: user.name, userId: user.userId };
-            const channel = await dbActions.getChannel(typer.targetChannel.id);
-            broadCastToChannel(channel, user, (user) => {
-               io.to(user).emit("removeTyper", newTyper);
-            });
-            cb("removed ok");
-         });
+         // client.on("removeTyper", async (typer, cb) => {
+         //    const newTyper = { name: user.name, userId: user.userId };
+         //    const channel = await dbActions.getChannel(typer.targetChannel.id);
+         //    broadCastToChannel(channel, user, (user) => {
+         //       io.to(user).emit("removeTyper", newTyper);
+         //    });
+         //    cb("removed ok");
+         // });
       }
       cb(user);
    });

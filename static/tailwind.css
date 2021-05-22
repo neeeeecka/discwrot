@@ -3,184 +3,184 @@
 @import "tailwindcss/utilities";
 
 .lds-ellipsis {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
+   display: inline-block;
+   position: relative;
+   width: 80px;
+   height: 80px;
 }
 .lds-ellipsis div {
-  position: absolute;
-  top: 33px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #fff;
-  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+   position: absolute;
+   top: 33px;
+   width: 10px;
+   height: 10px;
+   border-radius: 50%;
+   background: #fff;
+   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .lds-ellipsis div:nth-child(1) {
-  left: 8px;
-  animation: lds-ellipsis1 0.6s infinite;
+   left: 8px;
+   animation: lds-ellipsis1 0.6s infinite;
 }
 .lds-ellipsis div:nth-child(2) {
-  left: 8px;
-  animation: lds-ellipsis2 0.6s infinite;
+   left: 8px;
+   animation: lds-ellipsis2 0.6s infinite;
 }
 .lds-ellipsis div:nth-child(3) {
-  left: 32px;
-  animation: lds-ellipsis2 0.6s infinite;
+   left: 32px;
+   animation: lds-ellipsis2 0.6s infinite;
 }
 .lds-ellipsis div:nth-child(4) {
-  left: 56px;
-  animation: lds-ellipsis3 0.6s infinite;
+   left: 56px;
+   animation: lds-ellipsis3 0.6s infinite;
 }
 @keyframes lds-ellipsis1 {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
+   0% {
+      transform: scale(0);
+   }
+   100% {
+      transform: scale(1);
+   }
 }
 @keyframes lds-ellipsis3 {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
+   0% {
+      transform: scale(1);
+   }
+   100% {
+      transform: scale(0);
+   }
 }
 @keyframes lds-ellipsis2 {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(24px, 0);
-  }
+   0% {
+      transform: translate(0, 0);
+   }
+   100% {
+      transform: translate(24px, 0);
+   }
 }
 
 body {
-  @apply bg-darkGray-700;
-  /* font-family: sans-serif; */
+   @apply bg-darkGray-700;
+   /* font-family: sans-serif; */
 }
 ::-webkit-scrollbar {
-  width: 8px; /* width of the entire scrollbar */
+   width: 8px; /* width of the entire scrollbar */
 }
 ::-webkit-scrollbar-track {
-  @apply bg-darkGray-800; /* color of the tracking area */
-  border: solid 3px transparent;
+   @apply bg-darkGray-800; /* color of the tracking area */
+   border: solid 3px transparent;
 }
 ::-webkit-scrollbar-thumb {
-  border-radius: 20px; /* roundness of the scroll thumb */
-  @apply bg-darkGray-600;
-  border: solid 3px transparent;
+   border-radius: 20px; /* roundness of the scroll thumb */
+   @apply bg-accent-600;
+   border: solid 3px transparent;
 }
 .scale-anim-95 {
-  transform: scale(0.95);
+   transform: scale(0.95);
 }
 .scale-anim-100 {
-  transform: scale(1);
+   transform: scale(1);
 }
 .scale-anim-115 {
-  transform: scale(1.15);
+   transform: scale(1.15);
 }
 .transform-duration-0 {
-  transition: none;
+   transition: none;
 }
 .transform-duration-1 {
-  transition: all 0.1s ease;
+   transition: all 0.1s ease;
 }
 .transform-duration-15 {
-  transition: all 0.15s ease;
+   transition: all 0.15s ease;
 }
 .transform-duration-25 {
-  transition: all 0.25s ease;
-  /* transition: all 5s ease; */
+   transition: all 0.25s ease;
+   /* transition: all 5s ease; */
 }
 .home-icon {
 }
 .w-logo {
-  width: 30px;
+   width: 30px;
 }
 
 .min-w-acc {
-  flex: 1 1 auto;
-  max-width: 740px;
-  min-width: 120px;
-  min-height: 100%;
+   flex: 1 1 auto;
+   max-width: 740px;
+   min-width: 120px;
+   min-height: 100%;
 }
 .flex-settings-left {
-  flex: 1 0 192px;
+   flex: 1 0 192px;
 }
 .flex-settings-right {
-  flex: 1 1 800px;
+   flex: 1 1 800px;
 }
 
 .width-sidebar {
-  width: 240px;
+   width: 240px;
 }
 .width-settings-sidebar {
-  width: 192px;
+   width: 192px;
 }
 .width-subSidebar {
-  width: 72px;
+   width: 72px;
 }
 .height-header {
-  height: 48px;
+   height: 48px;
 }
 .height-input {
-  height: 28px;
+   height: 28px;
 }
 .user-head-big {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
+   width: 48px;
+   height: 48px;
+   border-radius: 50%;
 }
 .user-head-small {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+   width: 32px;
+   height: 32px;
+   border-radius: 50%;
 }
 .wh-square-sm {
-  width: 32px;
-  height: 32px;
+   width: 32px;
+   height: 32px;
 }
 .wh-square-md {
-  width: 36px;
-  height: 36px;
+   width: 36px;
+   height: 36px;
 }
 .children-mb-1 {
-  margin-bottom: 0.25rem;
+   margin-bottom: 0.25rem;
 }
 .children-mb-1:last-child {
-  margin-bottom: 0;
+   margin-bottom: 0;
 }
 .text-cs {
-  font-size: 13px;
+   font-size: 13px;
 }
 .text-xscs {
-  font-size: 12px;
+   font-size: 12px;
 }
 .children-mb-2 {
-  margin-bottom: 0.5rem;
+   margin-bottom: 0.5rem;
 }
 .children-mb-2:last-of-type {
-  margin-bottom: 0;
+   margin-bottom: 0;
 }
 
 .shadow-bottom {
-  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.35);
+   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.35);
 }
 
 .children-mb-3 {
-  margin-bottom: 0.75rem;
+   margin-bottom: 0.75rem;
 }
 .children-mb-3:last-child {
-  margin-bottom: 0;
+   margin-bottom: 0;
 }
 
 .children-mb-4 {
-  margin-bottom: 1rem;
+   margin-bottom: 1rem;
 }
 .children-mb-4:last-child {
-  margin-bottom: 0;
+   margin-bottom: 0;
 }
