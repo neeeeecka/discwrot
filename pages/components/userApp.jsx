@@ -33,7 +33,7 @@ class UserApp extends Component {
 
    componentDidMount = () => {
       // const io = SocketIO("ws://localhost:2998");
-      const io = SocketIO("ws://192.168.100.97:2998");
+      const io = SocketIO("ws://192.168.100.98:2998");
 
       // const cURL = "http://192.168.100.97:2999";
 

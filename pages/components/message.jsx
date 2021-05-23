@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faFileDownload } from "@fortawesome/free-solid-svg-icons";
 
+import dayjs from "dayjs";
+
 class FlatContent extends Component {
    componentWillReceiveProps(nextProps) {}
    render() {
@@ -47,24 +49,27 @@ class Message extends Component {
    render() {
       const message = this.props.message;
       const withAuthor = this.props.withAuthor;
-      const date = new Date(this.props.timestamp);
-      const today = new Date();
-      const HourMin = date.getHours() + ":" + date.getMinutes();
-      let DMY = "";
-      if (
-         today.getDay() + "/" + today.getMonth() ==
-         date.getDay() + "/" + date.getMonth()
-      ) {
-         DMY = "Today at: " + HourMin;
+      const today = +new Date();
+      const messageTimestamp = this.props.timestamp;
+
+      // console.log(dayjs);
+      let userSideTime = 0;
+      let messageSideTime = 0;
+
+      let messageDDMM = dayjs(messageTimestamp).format("DD:MM");
+      let todayDDMM = dayjs(today).format("DD:MM");
+
+      let todayHHMM = dayjs(messageTimestamp).format("h:mm");
+      let messageHHMM = dayjs(today).format("h:mm");
+
+      if (todayDDMM == messageDDMM) {
+         userSideTime = " Today at: " + todayHHMM;
       } else {
-         DMY =
-            "At: " +
-            date.getDay() +
-            "/" +
-            date.getMonth() +
-            "/" +
-            date.getFullYear();
+         userSideTime =
+            " At: " + dayjs(messageTimestamp).format("DD/MM/YYYY, h:mm");
       }
+
+      messageSideTime = messageHHMM;
 
       let dom = null;
       if (message.content) {
@@ -82,8 +87,7 @@ class Message extends Component {
                         {message.author.username}
                      </span>
                      <span className="text-darkGray-400 text-xs ml-2">
-                        {" "}
-                        {DMY}
+                        {userSideTime}
                      </span>
                      <FlatContent temporary={message.temporary}>
                         {message.content}
@@ -101,7 +105,7 @@ class Message extends Component {
                   }
                   icon={
                      <span className="w-40px text-right text-xs leading-none m-auto">
-                        {HourMin}
+                        {messageSideTime}
                      </span>
                   }
                >

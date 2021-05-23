@@ -56,7 +56,25 @@ class Chat extends Component {
       return dom;
    };
 
+   typerFps = true;
+
    writeMessage = (e) => {
+      const cc = this.getChannelCopy();
+      // clearTimeout(this.typeEnd);
+      if (this.typerFps) {
+         this.typerFps = false;
+         setTimeout(() => {
+            this.props.io.emit(
+               "typingMessage",
+               {
+                  targetChannel: cc,
+               },
+               (res) => {}
+            );
+            this.typerFps = true;
+         }, (1 / 2) * 1000);
+      }
+
       if (e.target.value.length <= 2000) {
          this.setState({ message: e.target.value });
       }
@@ -66,15 +84,15 @@ class Chat extends Component {
       return JSON.parse(JSON.stringify(this.props.selectedChannel));
    };
    getTypers = () => {
-      const maxTypers = 2;
+      const maxTypers = 3;
       let dom = [];
       const typers = Object.values(this.state.typers);
       if (typers.length > 1) {
-         for (var i = 0; i < maxTypers; i++) {
+         for (var i = 0; i < typers.length; i++) {
             dom.push(
                <span className="font-bold" key={typers[i].name}>
                   {typers[i].name}
-                  {i != maxTypers - 1 ? "," : ""}
+                  {i != maxTypers - 1 ? ", " : ""}
                </span>
             );
          }
@@ -183,15 +201,17 @@ class Chat extends Component {
          this.setState({ messages: newMessages });
       });
       io.on("recieveTyper", async (recievedTyper) => {
+         console.log("receive");
          const newTypers = { ...this.state.typers };
          newTypers[recievedTyper.userId] = recievedTyper;
-         this.setState({ typers: newTypers });
-         clearTimeout(this.typerTimeout);
-         this.typerTimeout = setTimeout(() => {
-            let newTypers = { ...this.state.typers };
-            delete newTypers[recievedTyper.userId];
-            this.setState({ typers: newTypers });
-         }, 1700);
+         this.setState({ typers: newTypers }, () => {
+            clearTimeout(this.typerTimeout);
+            this.typerTimeout = setTimeout(() => {
+               let newTypers = { ...this.state.typers };
+               delete newTypers[recievedTyper.userId];
+               this.setState({ typers: newTypers });
+            }, 1700);
+         });
       });
    };
 
@@ -260,19 +280,7 @@ class Chat extends Component {
                            this.sendMessage();
                         }
                      }}
-                     onKeyUp={(e) => {
-                        const cc = this.getChannelCopy();
-                        console.log("send");
-                        // clearTimeout(this.typeEnd);
-
-                        this.props.io.emit(
-                           "typingMessage",
-                           {
-                              targetChannel: cc,
-                           },
-                           (res) => {}
-                        );
-                     }}
+                     // onKeyUp={}
                   />
                </div>
                <div className="pt-1 mb-0 ml-2 h-1line text-sm px-2 text-darkGray-150">

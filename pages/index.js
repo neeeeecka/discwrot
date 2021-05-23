@@ -4,7 +4,7 @@ import UserApp from "./components/userApp";
 import cookies from "next-cookies";
 
 // const cURL = "http://localhost:2999";
-const cURL = "http://192.168.100.97:2999";
+const cURL = "http://192.168.100.98:2999";
 
 class Index extends Component {
    state = {
