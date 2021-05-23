@@ -5,7 +5,7 @@
    "main": "index.js",
    "scripts": {
       "dev": "next",
-      "server": "nodemon --inspect server/main.js --watch server/ ",
+      "server": "nodemon --experimental-json-modules server/main.js --watch server/ ",
       "build": "next build",
       "prod": "next export"
    },
@@ -24,10 +24,13 @@
       "@zeit/next-css": "^1.0.1",
       "autoprefixer": "^9.8.6",
       "body-parser": "^1.19.0",
+      "connect-busboy": "0.0.2",
       "cookie-parser": "^1.4.5",
       "cors": "^2.8.5",
+      "cross-blob": "^2.0.0",
       "dayjs": "^1.10.4",
       "express": "^4.17.1",
+      "fs-extra": "^10.0.0",
       "js-cookie": "^2.2.1",
       "moment": "^2.29.1",
       "mongodb": "^3.6.8",

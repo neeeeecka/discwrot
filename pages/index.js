@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import Settings from "./components/settings/settings";
 import UserApp from "./components/userApp";
 import cookies from "next-cookies";
-
+import config from "../config.json";
 // const cURL = "http://localhost:2999";
-const cURL = "http://192.168.100.98:2999";
-
 class Index extends Component {
    state = {
       user: {
@@ -21,7 +19,7 @@ class Index extends Component {
    static async getInitialProps(ctx) {
       const userSessionId = cookies(ctx).sessionId;
       console.log(userSessionId);
-      let response = await fetch(`${cURL}/@me`, {
+      let response = await fetch(`${config.ip}:2999/@me`, {
          credentials: "include",
          headers: {
             cookie: "sessionId=" + userSessionId,
@@ -35,7 +33,7 @@ class Index extends Component {
       return {
          sessionId: userSessionId || "",
          user: data,
-         cURL: cURL,
+         cURL: `${config.ip}:2999`,
       };
    }
 

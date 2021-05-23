@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import MessageObject from "../messageObject";
 // const MessageObject = require("./messageObject.js");
+import config from "../../config.json";
 
 class Chat extends Component {
    state = {
@@ -215,6 +216,11 @@ class Chat extends Component {
       });
    };
 
+   constructor(props) {
+      super(props);
+      this.uploaderRef = React.createRef();
+   }
+
    typeEnd = -1;
    typeStart = false;
 
@@ -263,12 +269,73 @@ class Chat extends Component {
                </div>
                <div className={"mx-4 m-auto rounded-md overflow-hidden flex"}>
                   <span className="my-auto bg-darkGray-600 h-full flex">
-                     <button className="hover:bg-darkGray-150 bg-darkGray-300 my-auto ml-4 outline-none focus:outline-none rounded-full flex w-20px h-20px">
+                     <button
+                        onClick={(e) => {
+                           // console.log(this.uploaderRef);
+                           this.uploaderRef.current.click();
+                        }}
+                        className="hover:bg-darkGray-150 bg-darkGray-300 my-auto ml-4 outline-none focus:outline-none rounded-full flex w-20px h-20px"
+                     >
                         <FontAwesomeIcon
                            icon={faPlus}
                            className="text-darkGray-600 m-auto sml-4 cursor-pointer"
                         />
                      </button>
+                     <input
+                        type="file"
+                        id="input"
+                        className="invisible hidden"
+                        ref={this.uploaderRef}
+                        onChange={(e) => {
+                           e.stopPropagation();
+                           e.preventDefault();
+                           var file = e.target.files[0];
+                           // var fileBlob =
+                           let currentSlice = 0,
+                              sliceSize = 1024 * 1024;
+                           let slices = Math.ceil(file.size / sliceSize);
+                           console.log(slices);
+                           const getNextSlice = () => {
+                              let start = currentSlice * sliceSize;
+                              let end = Math.min(
+                                 (currentSlice + 1) * sliceSize,
+                                 file.size
+                              );
+                              ++currentSlice;
+
+                              return file.slice(start, end);
+                           };
+                           const sendNextSlice = () => {
+                              this.props.io.emit(
+                                 "fileSlice",
+                                 {
+                                    currentSlice:
+                                       slices == 0 ? "done" : currentSlice,
+                                    slice: slices == 0 ? null : getNextSlice(),
+                                 },
+                                 () => {
+                                    if (slices >= 0) {
+                                       sendNextSlice();
+                                       slices--;
+
+                                       console.log(
+                                          "Sending slice " + currentSlice
+                                       );
+                                    }
+                                 }
+                              );
+                           };
+                           sendNextSlice();
+
+                           // var formData = new FormData();
+                           // formData.append(0, file, file.fileName);
+
+                           // fetch(config.ip + ":2999/upload", {
+                           //    method: "POST",
+                           //    body: formData,
+                           // });
+                        }}
+                     />
                   </span>
                   <MessageInput
                      writeMessage={this.writeMessage}

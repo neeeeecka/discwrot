@@ -3,6 +3,7 @@ import { instanceOf } from "prop-types";
 import SideBar from "./sideBar";
 import loadable from "@loadable/component";
 import SocketIO from "socket.io-client";
+import config from "../../config.json";
 
 class LoadedPage extends Component {
    shouldComponentUpdate(nextProps, nextState) {
@@ -33,7 +34,7 @@ class UserApp extends Component {
 
    componentDidMount = () => {
       // const io = SocketIO("ws://localhost:2998");
-      const io = SocketIO("ws://192.168.100.98:2998");
+      const io = SocketIO(config.ip + ":2998");
 
       // const cURL = "http://192.168.100.97:2999";
 

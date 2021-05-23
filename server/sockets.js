@@ -1,4 +1,7 @@
-const sockets = (io, dbActions, webURL) => {
+import Blob from "cross-blob";
+import fs from "fs";
+
+const sockets = (io, dbActions) => {
    //better save such stuff in DB but ok
    const connectedPeers = {};
 
@@ -17,7 +20,7 @@ const sockets = (io, dbActions, webURL) => {
          // console.log(user);
          connectedPeers[user.userId] = client.id;
          if (user) {
-            client.on("message", async (message, cb) => {
+            client.on("message", async (message) => {
                message.author = user;
                const resultMessage = await dbActions.messageChannel(message);
                const channel = await dbActions.getChannel(
@@ -37,6 +40,7 @@ const sockets = (io, dbActions, webURL) => {
                broadCastToChannel(channel, user, (user) => {
                   io.to(user).emit("recieveTyper", newTyper);
                });
+               cb();
             });
          }
          cb(user);
@@ -45,6 +49,26 @@ const sockets = (io, dbActions, webURL) => {
       client.on("disconnect", () => {
          delete connectedPeers[client.id];
          console.log(client.id + " -disconnected");
+      });
+
+      let userFileBlobParts = [];
+      client.on("fileSlice", async (data, next) => {
+         const { currentSlice, slice } = { ...data };
+         if (currentSlice == 0) {
+            userFileBlobParts = [];
+         }
+         if (currentSlice == "done") {
+            const finishedBlob = new Blob(userFileBlobParts, {
+               type: "application/zip",
+            });
+            const buffer = await finishedBlob.arrayBuffer();
+            console.log(buffer);
+            fs.writeFileSync("./files/test.zip", Buffer.from(buffer));
+         } else {
+            userFileBlobParts.push(slice);
+            next();
+         }
+         console.log("recieved slice " + currentSlice, slice);
       });
    });
 };

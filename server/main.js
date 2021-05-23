@@ -7,6 +7,7 @@ import SocketIO from "socket.io";
 import DBActions from "./dbActions.js";
 import attachRESTapi from "./api.js";
 import attachSockets from "./sockets.js";
+import config from "../config.json";
 
 const MongoClient = mongodb.MongoClient;
 
@@ -20,8 +21,6 @@ MongoClient.connect(url, function (err, client) {
    dbActions.init(client.db(dbName));
 });
 
-const webURL = "http://192.168.100.98:3000";
-
 /*
 curl -X GET http://localhost:2999/users
 curl -H "Content-Type: application/json" -X POST -d '{"test":"yes"}' http://localhost:2999/users
@@ -30,7 +29,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"mac":"some-mac-mac"}' htt
 
 const app = express();
 const restPort = 2999;
-attachRESTapi(app, dbActions, webURL);
+attachRESTapi(app, dbActions);
 app.listen(restPort, () =>
    console.log(`Server listening on port ${restPort}!`)
 );
@@ -40,11 +39,11 @@ const socketsPort = 2998;
 const io = SocketIO(server, {
    cors: {
       methods: ["GET", "PATCH", "POST", "PUT"],
-      origin: webURL,
+      origin: config.ip + ":3000",
    },
 });
 io.listen(socketsPort);
 
-attachSockets(io, dbActions, webURL);
+attachSockets(io, dbActions);
 
 export default app;

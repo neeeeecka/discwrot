@@ -1,7 +1,16 @@
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import busboy from "connect-busboy";
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+import fs from "fs";
+import config from "../config.json";
 
-const REST = (app, dbActions, webURL) => {
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+const REST = (app, dbActions) => {
    app.use(
       bodyParser.json({
          // extended: true
@@ -13,8 +22,7 @@ const REST = (app, dbActions, webURL) => {
       let reqURL = req.header("Origin");
       if (reqURL) {
          // reqURL = reqURL == undefined ? "http://localhost:3000/" : reqURL;
-
-         res.setHeader("Access-Control-Allow-Origin", webURL);
+         res.setHeader("Access-Control-Allow-Origin", config.ip + ":3000");
          res.setHeader(
             "Access-Control-Allow-Methods",
             "GET, POST, OPTIONS, PUT, PATCH, DELETE"
@@ -98,6 +106,25 @@ const REST = (app, dbActions, webURL) => {
       const userId = req.params.userId;
 
       return res.send("Received a DELETE HTTP method");
+   });
+   app.use(busboy());
+   //    app.use(express.static(path.join(__dirname, "public")));
+   //    app.
+   app.post("/upload", async (req, res) => {
+      if (req) {
+         let fstream;
+         req.pipe(req.busboy);
+         req.busboy.on("file", function (fieldname, file, filename) {
+            console.log("Uploading: " + filename);
+            //Path where image will be uploaded
+            fstream = fs.createWriteStream("./files/" + filename);
+            file.pipe(fstream);
+            fstream.on("finish", function () {
+               console.log("Upload Finished of " + filename);
+               res.send("success");
+            });
+         });
+      }
    });
 };
 export default REST;
