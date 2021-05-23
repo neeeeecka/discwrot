@@ -1,4 +1,5 @@
-import MessageObject from "../pages/messageObject.js";
+import importMessageObject from "../pages/messageObject.js";
+const { MessageObject } = importMessageObject;
 
 class DBActions {
    constructor(db) {
@@ -38,7 +39,7 @@ class DBActions {
       // let channel = await this.channelCollection.find({ channelId: message.targetChannel.id});
       const newMessage = new MessageObject(message);
       let query = await this.channelCollection.updateOne(
-         { channelId: message.targetChannel.id },
+         { channelId: message.channelId },
          {
             $push: {
                messages: { $each: [newMessage], $position: 0 },

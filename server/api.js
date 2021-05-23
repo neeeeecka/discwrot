@@ -126,5 +126,13 @@ const REST = (app, dbActions) => {
          });
       }
    });
+   app.get("/download/", async (req, res) => {
+      if (req.query.name.length) {
+         const fileName = req.query.name;
+         res.download("./files/" + fileName, `${fileName}`);
+      } else {
+         res.status(400);
+      }
+   });
 };
 export default REST;

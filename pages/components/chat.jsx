@@ -3,7 +3,7 @@ import loadable from "@loadable/component";
 import Message from "./message";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import MessageObject from "../messageObject";
+import { MessageObject, makeId } from "../messageObject";
 // const MessageObject = require("./messageObject.js");
 import config from "../../config.json";
 import clientUploader from "./websocketUploader";
@@ -14,11 +14,11 @@ class Chat extends Component {
       messages: [],
       loading: false,
       typers: {},
+      uploadProgress: 0,
    };
 
    getChat = () => {
       const dom = [];
-      // console.log(this.state.messages);
       const messages = this.state.messages;
       messages.forEach((message, i) => {
          const timestamp1 = message.timestamp;
@@ -44,14 +44,14 @@ class Chat extends Component {
          } else {
             withAuthor = true;
          }
-
          dom.unshift(
             <Message
-               key={"msg-" + i}
+               key={message.id}
                message={message}
                withAuthor={withAuthor}
                timestamp={timestamp1}
                className={i === 0 ? " mb-5" : ""}
+               uploadProgress={this.state.uploadProgress}
             />
          );
       });
@@ -124,40 +124,43 @@ class Chat extends Component {
 
       return dom;
    };
+   deleteMessage(id) {
+      const newMessages = [...this.state.messages];
+      newMessages.forEach((message, i) => {
+         if (message.id == id) {
+            newMessages.splice(i, 1);
+         }
+      });
+      this.setState({ messages: newMessages });
+   }
+   addMessage(data) {
+      const newMessages = [...this.state.messages];
+      data.id = makeId(12);
+      data.author = {
+         name: this.props.user.name,
+         userId: this.props.user.userId,
+      };
+      const tempMsg = new MessageObject(data);
+      tempMsg.temporary = true;
+      newMessages.unshift(tempMsg);
+      this.setState({ message: "", messages: newMessages });
+      return data;
+   }
    sendMessage = () => {
       let message = this.state.message.trimStart().trimEnd();
 
       if (message.length > 0) {
-         const newMessages = [...this.state.messages];
-         const data = {
-            targetChannel: this.props.selectedChannel,
-            content: message,
-            id: makeid(12),
-         };
-         console.log(this.props.user.userId);
-         data.author = {
-            name: this.props.user.name,
-            userId: this.props.user.userId,
-         };
-         const tempMsg = new MessageObject(data);
-         tempMsg.temporary = true;
-         newMessages.unshift(tempMsg);
-
-         const cc = this.getChannelCopy();
          this.props.io.emit(
             "message",
-            {
-               targetChannel: cc,
+            this.addMessage({
                content: message,
-               id: data.id,
-            },
+            }),
             (res) => {}
          );
-
-         this.setState({ message: "", messages: newMessages });
       }
    };
    shouldComponentUpdate(nextProps, nextState) {
+      this.props.io.emit("selectChannel", this.props.selectedChannel.id);
       return true;
    }
    typerTimeout = null;
@@ -291,8 +294,17 @@ class Chat extends Component {
                            e.stopPropagation();
                            e.preventDefault();
                            var file = e.target.files[0];
+                           const loader = this.addMessage({
+                              progress: true,
+                           });
                            clientUploader(this.props.io, file, (progress) => {
                               console.log(progress);
+                              this.setState({
+                                 uploadProgress: progress,
+                              });
+                              if (progress == 1) {
+                                 this.deleteMessage(loader.id);
+                              }
                            });
                            // var fileBlob =
 
@@ -359,7 +371,6 @@ function MessageInput(props) {
       />
    );
 }
-
 function makeid(length) {
    var result = "";
    var characters =

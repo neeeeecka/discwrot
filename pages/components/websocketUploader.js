@@ -1,6 +1,6 @@
 const clientUploader = async (io, file, progress) => {
    let currentSlice = 0,
-      sliceSize = 1024 * 1024;
+      sliceSize = (1024 * 1024) / 3;
    const totalSlices = Math.ceil(file.size / sliceSize);
    let slices = totalSlices;
    //  console.log(slices);
@@ -14,7 +14,7 @@ const clientUploader = async (io, file, progress) => {
    console.log("sending: ", file);
    const sendNextSlice = () => {
       io.emit(
-         "fileSlice",
+         "fileSlicePartial",
          {
             fileName: file.name,
             currentSlice: slices == 0 ? "done" : currentSlice,
