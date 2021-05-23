@@ -53,17 +53,18 @@ const sockets = (io, dbActions) => {
 
       let userFileBlobParts = [];
       client.on("fileSlice", async (data, next) => {
-         const { currentSlice, slice } = { ...data };
+         const { fileName, currentSlice, slice } = { ...data };
          if (currentSlice == 0) {
             userFileBlobParts = [];
          }
          if (currentSlice == "done") {
             const finishedBlob = new Blob(userFileBlobParts, {
-               type: "application/zip",
+               type: "application/octet-stream",
             });
             const buffer = await finishedBlob.arrayBuffer();
             console.log(buffer);
-            fs.writeFileSync("./files/test.zip", Buffer.from(buffer));
+            fs.writeFileSync("./files/" + fileName, Buffer.from(buffer));
+            next();
          } else {
             userFileBlobParts.push(slice);
             next();

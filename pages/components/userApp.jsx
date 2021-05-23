@@ -73,7 +73,7 @@ class UserApp extends Component {
       );
    };
    shouldComponentUpdate(nextProps, nextState) {
-      console.log("upd");
+      //console.log("upd");
       return true;
    }
 

@@ -6,6 +6,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import MessageObject from "../messageObject";
 // const MessageObject = require("./messageObject.js");
 import config from "../../config.json";
+import clientUploader from "./websocketUploader";
 
 class Chat extends Component {
    state = {
@@ -290,42 +291,10 @@ class Chat extends Component {
                            e.stopPropagation();
                            e.preventDefault();
                            var file = e.target.files[0];
+                           clientUploader(this.props.io, file, (progress) => {
+                              console.log(progress);
+                           });
                            // var fileBlob =
-                           let currentSlice = 0,
-                              sliceSize = 1024 * 1024;
-                           let slices = Math.ceil(file.size / sliceSize);
-                           console.log(slices);
-                           const getNextSlice = () => {
-                              let start = currentSlice * sliceSize;
-                              let end = Math.min(
-                                 (currentSlice + 1) * sliceSize,
-                                 file.size
-                              );
-                              ++currentSlice;
-
-                              return file.slice(start, end);
-                           };
-                           const sendNextSlice = () => {
-                              this.props.io.emit(
-                                 "fileSlice",
-                                 {
-                                    currentSlice:
-                                       slices == 0 ? "done" : currentSlice,
-                                    slice: slices == 0 ? null : getNextSlice(),
-                                 },
-                                 () => {
-                                    if (slices >= 0) {
-                                       sendNextSlice();
-                                       slices--;
-
-                                       console.log(
-                                          "Sending slice " + currentSlice
-                                       );
-                                    }
-                                 }
-                              );
-                           };
-                           sendNextSlice();
 
                            // var formData = new FormData();
                            // formData.append(0, file, file.fileName);
