@@ -25,6 +25,7 @@ class Chat extends Component {
 
          let withAuthor = false;
          const prevMessage = messages[i + 1];
+         let ownsPreviousMessage = false;
          if (prevMessage) {
             const timestamp0 = prevMessage.timestamp;
 
@@ -34,12 +35,13 @@ class Chat extends Component {
             }
             // console.log(delta / 1000 / 60, message, prevMessage, withAuthor);
 
-            if (message.author.id !== prevMessage.author.id) {
-               withAuthor = true;
-            } else {
+            if (message.author.id == prevMessage.author.id) {
                if (!prevMessage.content.length && message.content.length) {
                   withAuthor = true;
+                  ownsPreviousMessage = true;
                }
+            } else {
+               withAuthor = true;
             }
          } else {
             withAuthor = true;
@@ -50,7 +52,7 @@ class Chat extends Component {
                message={message}
                withAuthor={withAuthor}
                timestamp={timestamp1}
-               className={i === 0 ? " mb-5" : ""}
+               className={""}
                uploadProgress={this.state.uploadProgress}
             />
          );
@@ -62,7 +64,6 @@ class Chat extends Component {
 
    writeMessage = (e) => {
       const cc = this.getChannelCopy();
-      // clearTimeout(this.typeEnd);
       if (this.typerFps) {
          this.typerFps = false;
          setTimeout(() => {
@@ -77,7 +78,7 @@ class Chat extends Component {
          }, (1 / 2) * 1000);
       }
 
-      if (e.target.value.length <= 2000) {
+      if (e.target.value.length <= 600) {
          this.setState({ message: e.target.value });
       }
    };
@@ -159,6 +160,12 @@ class Chat extends Component {
          );
       }
    };
+   componentDidUpdate(prevProps, prevState) {
+      if (prevState.messages.length != this.state.messages.length) {
+         const scrollElement = this.chatScrollRef.current;
+         scrollElement.scrollTo(0, scrollElement.scrollHeight);
+      }
+   }
    shouldComponentUpdate(nextProps, nextState) {
       this.props.io.emit("selectChannel", this.props.selectedChannel.id);
       return true;
@@ -196,7 +203,7 @@ class Chat extends Component {
          newMessages.forEach((message, i) => {
             if (message.id === recievedMessage.id) {
                newMessages[i] = recievedMessage;
-               console.log("found and updating", message, recievedMessage);
+               // console.log("found and updating", message, recievedMessage);
                replaced = true;
             }
          });
@@ -223,10 +230,8 @@ class Chat extends Component {
    constructor(props) {
       super(props);
       this.uploaderRef = React.createRef();
+      this.chatScrollRef = React.createRef();
    }
-
-   typeEnd = -1;
-   typeStart = false;
 
    render() {
       return (
@@ -247,14 +252,10 @@ class Chat extends Component {
             >
                <div
                   className={
-                     "flex-1 overflow-y-auto overflow-x-hidden pb-4-not-working-in-firefox-so-applied-on--lastchild-instead" +
+                     "flex-1 overflow-y-auto overflow-x-hidden mb-5" +
                      (this.state.loading ? " flex" : "")
                   }
-                  ref={(el) => {
-                     if (el) {
-                        el.scrollTo(0, el.scrollHeight);
-                     }
-                  }}
+                  ref={this.chatScrollRef}
                >
                   <div
                      className={
@@ -294,16 +295,23 @@ class Chat extends Component {
                            e.stopPropagation();
                            e.preventDefault();
                            var file = e.target.files[0];
-                           const loader = this.addMessage({
-                              progress: true,
-                           });
+
+                           let loader;
+                           const loaderDelayer = setTimeout(() => {
+                              loader = this.addMessage({
+                                 progress: true,
+                              });
+                           }, 400);
+
                            clientUploader(this.props.io, file, (progress) => {
-                              console.log(progress);
                               this.setState({
                                  uploadProgress: progress,
                               });
                               if (progress == 1) {
-                                 this.deleteMessage(loader.id);
+                                 clearTimeout(loaderDelayer);
+                                 if (loader) {
+                                    this.deleteMessage(loader.id);
+                                 }
                               }
                            });
                            // var fileBlob =
@@ -353,21 +361,6 @@ function MessageInput(props) {
          onChange={writeMessage}
          onKeyDown={onKeyDown}
          onKeyUp={onKeyUp}
-         // onKeyUp={(e) => {
-         //    const cc = this.getChannelCopy();
-         //    clearTimeout(this.typeEnd);
-         //    this.typeEnd = setTimeout(() => {
-         //       this.props.io.emit(
-         //          "removeTyper",
-         //          {
-         //             targetChannel: cc,
-         //          },
-         //          (res) => {
-         //             this.typeStart = false;
-         //          }
-         //       );
-         //    }, 960);
-         // }}
       />
    );
 }

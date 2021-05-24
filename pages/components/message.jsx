@@ -6,44 +6,40 @@ import { faPhone, faFileDownload } from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
 import next from "next";
 
-class FlatContent extends Component {
-   componentWillReceiveProps(nextProps) {}
-   render() {
-      const props = this.props;
-      return (
-         <div
-            className={
-               "text-base text-darkGray-100 hover:bg-darkGray-750 flex leading-relaxed " +
-               (props.className ? props.className : "") +
-               (props.pad ? " my-3 py-1" : "")
-            }
-         >
-            {props.icon ? <div className="flex mx-4">{props.icon}</div> : null}
-            {props.level == 0 ? (
-               props.children
-            ) : (
-               <div>
-                  {props.author ? (
-                     <span className="hover:underline cursor-pointer">
-                        {props.author.username}
-                     </span>
-                  ) : null}
-
-                  <span
-                     className={
-                        "break-all" +
-                        (props.temporary
-                           ? " text-darkGray-500"
-                           : " text-darkGray-150")
-                     }
-                  >
-                     {props.children}
+function FlatContent(props) {
+   return (
+      <div
+         className={
+            "text-base text-darkGray-100 hover:bg-darkGray-750 flex leading-relaxed " +
+            (props.className ? props.className : "") +
+            (props.pad ? " my-3 py-1" : "")
+         }
+      >
+         {props.icon ? <div className="flex mx-4">{props.icon}</div> : null}
+         {props.level == 0 ? (
+            props.children
+         ) : (
+            <div>
+               {props.author ? (
+                  <span className="hover:underline cursor-pointer">
+                     {props.author.username}
                   </span>
-               </div>
-            )}
-         </div>
-      );
-   }
+               ) : null}
+
+               <span
+                  className={
+                     "break-all" +
+                     (props.temporary
+                        ? " text-darkGray-500"
+                        : " text-darkGray-150")
+                  }
+               >
+                  {props.children}
+               </span>
+            </div>
+         )}
+      </div>
+   );
 }
 
 const messageMap = (message, userSideTime, messageSideTime, props) => ({
@@ -122,7 +118,10 @@ const messageMap = (message, userSideTime, messageSideTime, props) => ({
          >
             {" "}
             sent an attachment:
-            {" " + message.attachments[0]}
+            {" " +
+               (message.attachments.length != 0
+                  ? message.attachments[0].split("=")[1]
+                  : null)}
          </a>
       </FlatContent>
    ),
@@ -197,7 +196,7 @@ class Message extends Component {
          messageSideTime,
          this.props
       );
-      console.log(message);
+      // console.log(message);
       if (message.content.length && message.content.length > 0) {
          if (withAuthor) {
             return messageModel.withAuthorAndContent;
